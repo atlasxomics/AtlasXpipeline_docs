@@ -41,7 +41,7 @@ Load needed libraries: ::
 Before starting downstream analysis in ArchR, a few global parameters must be set: ::
 
    data_species <- 'mm10'
-   num_threads <- '1'
+   num_threads <- 1
    tile_size <- 5000  
    genomeSize = 3.0e+09
    min_TSS <- 0
@@ -81,7 +81,8 @@ arbitrary 'Control' sample is created::
 ArchR can then access this data through associating the newly created ArrowFiles with an **ArchRProject**. An ArchRProject is 
 a data structure stored in memory that can be easily accessed/mutated by R. Every operation on the ArchRProject affects its associated
 ArrowFile. All of the archR downstream analysis will take place on the ArchRProject. To create an ArchRProject, pass in the previously
-created ArrowFiles object to the ArchRProject function call::
+created ArrowFiles object to the ArchRProject function call ::
+
    proj <- ArchRProject(
       ArrowFiles = ArrowFiles, 
       outputDirectory = project_name,
@@ -104,6 +105,10 @@ will serve as the only features to be included in the genescore matrix when expo
 'subsetted' gene-score matrix along with the 10X Visium image object are then combined together to create a spatially resolved
 ATAC object containing all of the spatial information and metadata computed in ArchR. ::
 
+   ############### Initializing parameters
+   spatialFolder <- '/path/to/spatial'
+   # EX: spatialFolder <- './D357/spatial'
+   
    ############### Prepare meta.data
    meta.data <- as.data.frame(getCellColData(ArchRProj = proj))
    meta.data['cellID_archr'] <- row.names(meta.data)
@@ -112,10 +117,16 @@ ATAC object containing all of the spatial information and metadata computed in A
    new_row_names <- unlist(lapply(new_row_names, function(x) gsub("-.*","", x)))
    row.names(meta.data) <- new_row_names
 
-   ############### Initializing parameters
-   spatialFolder <- '/path/to/spatial'
-   threshold <- 0.25
-   
+   tissue_positions_list = read.csv(file = file.path(spatialFolder,'tissue_positions_list.csv'), header = 0)
+   meta_tixels <- rownames(meta.data)
+   n_frags <- meta.data$nFrags
+
+   n_frags_df <- data.frame(nFrags = n_frags)
+   rownames(n_frags_df) <- meta_tixels
+   tissue_positions_list_m <- merge(tissue_positions_list, n_frags_df, by.x = 'V1', by.y = 'row.names')
+   tissue_positions_list_m$nFrags_log2 = log(x = tissue_positions_list_m$nFrags+1, base = 2)
+   write.table(tissue_positions_list_m, file.path(spatialFolder, "tissue_positions_list_log_nFrags.csv"), col.names = FALSE, row.names = FALSE, sep = ',')
+
    ############### Filtering off-tissue tixels using image data
    image = Read10X_Image(image.dir = spatialFolder, filter.matrix = TRUE)
    sequenced_tixels <- row.names(meta.data)
