@@ -22,11 +22,6 @@ as outlined in ArchR's tutorial.
 
 Dependencies
 ------------
-
-
-Quick Start
------------
-
 Load needed libraries: ::
 
    library(ArchR)
