@@ -240,9 +240,3 @@ back to spatial images using standard Seurat functions ::
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
