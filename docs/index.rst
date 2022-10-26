@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Introduction to ATAC Analysis with DBiT-seq
+Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 =======================================================================
 
 .. toctree::
@@ -179,12 +179,12 @@ ATAC object containing all of the spatial information and metadata computed in A
       )
 
       if ( threshold > 0 ) {
-         markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC >= 0.25")
+         markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC >= threshold")
          for(i in names(markerList)){
             markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = TRUE),]
          }
       } else {
-         markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC <= 0.25")
+         markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC <= threshold")
          for(i in names(markerList)){
             markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = FALSE),]
          }
@@ -227,7 +227,7 @@ ATAC object containing all of the spatial information and metadata computed in A
    Idents(spatial_in_tissue.obj) = 'orig.ident'
    spatial_in_tissue.obj = AddMetaData(spatial_in_tissue.obj, spatial_in_tissue.obj@images$slice1@coordinates)
 
-Once the spatial objects have been generated, various metadata and genescore information can now be plotted
+Once the spatial objects have been generated, various metadata and gene score information can now be plotted
 back to spatial images using standard Seurat functions :: 
 
    ############## Plotting the Spatial map
@@ -251,9 +251,3 @@ back to spatial images using standard Seurat functions ::
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
