@@ -108,7 +108,6 @@ ATAC object containing all of the spatial information and metadata computed in A
 
    ############### Initializing parameters
    spatialFolder <- '/path/to/spatial'
-   threshold <- .25
    # EX: spatialFolder <- './D357/spatial'
    
    ############### Prepare meta.data
@@ -160,38 +159,6 @@ ATAC object containing all of the spatial information and metadata computed in A
       metric = "cosine",
       force = TRUE
    )
-
-   #################  Filtering marker genes   
-   markersGS <- getMarkerFeatures(
-      ArchRProj = proj_in_tissue,
-      useMatrix = "GeneScoreMatrix",
-      groupBy = "Clusters",
-      testMethod = "ttest"
-   )
-
-   if ( threshold > 0 ) {
-      markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC >= threshold")
-      for(i in names(markerList)){
-         markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = TRUE),]
-      }
-   } else {
-      markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC <= threshold")
-      for(i in names(markerList)){
-         markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = FALSE),]
-      }
-   }
-
-   markerGenes <- list()
-      for (i in seq_len(length(markerList))) {
-      markerGenes <- c(markerGenes, markerList[[i]]$name)
-   }
-
-   if (length(markerGenes) == 0){
-      print("Marker genes vec is empty")
-      markerList <- c('')
-   } else {
-      markerGenes <- unique(unlist(markerGenes))
-   }
 
    ############## Creating Seurat object
    proj_in_tissue <- addImputeWeights(proj_in_tissue)
