@@ -161,9 +161,9 @@ ATAC object containing all of the spatial information and metadata computed in A
    )
 
    ############## Creating Seurat object
-   proj_in_tissue <- addImputeWeights(proj_in_tissue)
    gene_score <- getMatrixFromProject(proj_in_tissue)
    rownames(gene_score) <- rowData(gene_score)$name
+   proj_in_tissue <- addImputeWeights(proj_in_tissue)
    gene_score <- imputeMatrix(assay(gene_score), getImputeWeights(proj_in_tissue))
    gene_score <- log(gene_score+1, base = 2)
    colnames(gene_score) <- gsub(pattern = paste0(project_name, "#|-1"), replacement = "", x= colnames(gene_score))
