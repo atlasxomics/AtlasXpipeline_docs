@@ -198,7 +198,6 @@ back to spatial images using standard Seurat functions such as SpatialDimPlot::
    spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
    plot_spatial = Seurat::SpatialDimPlot(
        spatial_in_tissue.obj,
-       group.by = "Clusters",
        label = FALSE, label.size = 3,
        pt.size.factor = pt_size_factor, cols = cols, stroke = 0) + 
        theme(
