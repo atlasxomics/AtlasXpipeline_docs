@@ -31,7 +31,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
    :maxdepth: 3
    :caption: AtlasXomics:
 
-   Spatial Epigenome
-   Spatial Transcriptome
+   SpatialEpigenome
+   SpatialTranscriptome
 
 .. image:: /images/atlasbg.png
