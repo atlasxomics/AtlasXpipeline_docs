@@ -5,246 +5,30 @@
 
 Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 =======================================================================
+.. toctree::
+   :caption: AtlasXbrowser:
+
+   Overview <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Overview.html>
+   Installation <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Installation.html>
+   OpeningFolder <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/OpeningFolder.html>
+   ImageConfiguration <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ImageConfiguration.html>
+   Thresholding <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Thresholding.html>
+   ROICharacterization <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ROICharacterization.html>
+   SpatialFolder <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/SpatialFolder.html>
+   ExampleWalkthrough <https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ExampleWalkthrough.html>
+
+.. toctree::
+   :caption: AtlasXplore:
+
+   Gene Search <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GeneSearch.html>
+   Genome Browser <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GenomeBrowser.html>
+   Motif Search <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/MotifSearch.html>
+   Lasso Selector <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/LassoSelector.html>
+   Customization <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Customization.html>
+   Plot Saving <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/SavingPlots.html>
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: Epigenome Data Analysis:
 
-Description
------------
-The aim of this tutorial is to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
-prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
-this tutorial centers around the usage of both `ArchR  <https://www.archrproject.com/bookdown/index.html>`_
-and `Seurat <https://satijalab.org/seurat>`_ to create a spatially resolved ATAC object from which we can map ATAC gene scores 
-back to the tissue histology. Each step in this analysis workflow closely follows standard scATAC downstream analysis 
-as outlined in ArchR's tutorial.
-
-
-Dependencies
-------------
-Load needed libraries: ::
-
-   library(ArchR)
-   library(Seurat)
-   library(grid)
-   library(patchwork)
-   library(gridExtra)
-   library(kableExtra)
-   library(dplyr)
-   library(tibble)
-   library(hdf5r)
-   library(clusterProfiler)
-   library(org.Mm.eg.db)
-   library(repr)
-   library(purrr)
-
-Before starting downstream analysis in ArchR, a few global parameters must be set: ::
-
-   data_species <- 'mm10'
-   num_threads <- 1
-   tile_size <- 5000  
-   genomeSize = 3.0e+09
-   min_TSS <- 0
-   min_Frags <- 0
-   set.seed(1234)
-   inputFile <- "/path/to/fragments.tsv.gz"
-   project_name <- 'Control'
-
-Once generating the needed fragments.tsv file outputted from Cellranger for a specific sample, we can now create
-an ArchR **ArrowFile** which will form the basis of our ATAC analysis. During the ArrowFile creation step, all of the
-necessary data and metadata for the given sample will be generated and stored on disk in HD5 format. A few parameters such as 
-minTSS and minFrags, which respectively denote the lowest TSS enrichment score and lowest number of fragments can
-be passed to filter out any bad quality tixels from the dataset. Here, an ArrowFile for a single fragments.tsv associated with an 
-arbitrary 'Control' sample is created::
-   
-   addArchRGenome(data_species)
-   geneAnnotation <- getGeneAnnotation()
-   genomeAnnotation <- getGenomeAnnotation()
-   addArchRThreads(threads = num_threads)
-   
-   ArrowFiles <- createArrowFiles(
-      inputFiles = inputFile,
-      sampleNames = project_name,
-      geneAnnotation = geneAnnotation,
-      genomeAnnotation = genomeAnnotation,
-      minTSS = min_TSS,
-      minFrags = min_Frags,
-      maxFrags = 1e+07,
-      addTileMat = TRUE,
-      addGeneScoreMat = TRUE,
-      offsetPlus = 0,
-      offsetMinus = 0,
-      force = TRUE,
-      TileMatParams = list(tileSize = tile_size)
-   )
-
-ArchR can then access this data through associating the newly created ArrowFiles with an **ArchRProject**. An ArchRProject is 
-a data structure stored in memory that can be easily accessed/mutated by R. Every operation on the ArchRProject affects its associated
-ArrowFile. All of the archR downstream analysis will take place on the ArchRProject. To create an ArchRProject, pass in the previously
-created ArrowFiles object to the ArchRProject function call ::
-
-   proj <- ArchRProject(
-      ArrowFiles = ArrowFiles, 
-      outputDirectory = project_name,
-      geneAnnotation = geneAnnotation,
-      genomeAnnotation = genomeAnnotation,
-      copyArrows = TRUE
-   )
-
-Once the ArchRProject is created, the spatial information contained in the folder generated by AtlasXBrowser can now be integrated. To
-do so, we leverage Seurat's spatial transcriptomic capabilities to incorporate the gene-score matrix computed in the createArrowFiles step 
-with the spatial histology using the image data:
-
-   * **spatialFolder**: A path to the spatial folder generated by AtlasXBrowser
-   * **threshold**: Double indicating Log2FC lower cutoff
-
-Within this function, spatial information is added to a Read10X_image object, dimensionality reduction is 
-computed via IterativeLSI technique, and clustering is performed using the standard Seurat v3 community neighborhood 
-detection method via **addClusters(…)**. Clusters are then embedded into a UMAP space purely for visualization purposes.
-Marker features for genescores are computed using the default t-test on cluster identities. These marker features
-will serve as the only features to be included in the genescore matrix when exported to Seurat's counts slot. Finally, the 
-'subsetted' gene-score matrix along with the 10X Visium image object are then combined together to create a spatially resolved
-ATAC object containing all of the spatial information and metadata computed in ArchR. ::
-
-   ############### Initializing parameters
-   spatialFolder <- '/path/to/spatial'
-   threshold <- .25
-   # EX: spatialFolder <- './D357/spatial'
-   
-   ############### Prepare meta.data
-   meta.data <- as.data.frame(getCellColData(ArchRProj = proj))
-   meta.data['cellID_archr'] <- row.names(meta.data)
-   new_row_names <- row.names(meta.data)
-   new_row_names <- unlist(lapply(new_row_names, function(x) gsub(".*#","", x)))
-   new_row_names <- unlist(lapply(new_row_names, function(x) gsub("-.*","", x)))
-   row.names(meta.data) <- new_row_names
-
-   ############### Filtering off-tissue tixels using image data
-   image = Read10X_Image(image.dir = spatialFolder, filter.matrix = TRUE)
-   sequenced_tixels <- row.names(meta.data)
-   image <- image[sequenced_tixels, ]
-   meta.data.spatial <- meta.data[row.names(image@coordinates), ]
-   proj_in_tissue <- proj[meta.data.spatial$cellID_archr, ]
-
-   ############### Dimension reduction, clustering, and add UMAP embedding
-   proj_in_tissue <- addIterativeLSI(
-      ArchRProj = proj_in_tissue,
-      useMatrix = "TileMatrix", 
-      name = "IterativeLSI", 
-      iterations = 2, 
-      clusterParams = list(
-      resolution = c(0.2), 
-      sampleCells = 10000, 
-      n.start = 10
-      ), 
-      varFeatures = 25000, 
-      dimsToUse = 1:30,
-      force = TRUE
-   )
-
-   proj_in_tissue <- addClusters(
-      input = proj_in_tissue,
-      reducedDims = "IterativeLSI",
-      method = "Seurat",
-      name = "Clusters",
-      resolution = 0.5,
-      force = TRUE
-   )
-
-   proj_in_tissue <- addUMAP(
-      ArchRProj = proj_in_tissue, 
-      reducedDims = "IterativeLSI", 
-      name = "UMAP", 
-      nNeighbors = 30, 
-      minDist = 0.5, 
-      metric = "cosine",
-      force = TRUE
-   )
-
-   #################  Filtering marker genes   
-   markersGS <- getMarkerFeatures(
-      ArchRProj = proj_in_tissue,
-      useMatrix = "GeneScoreMatrix",
-      groupBy = "Clusters",
-      testMethod = "ttest"
-   )
-
-   if ( threshold > 0 ) {
-      markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC >= threshold")
-      for(i in names(markerList)){
-         markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = TRUE),]
-      }
-   } else {
-      markerList <- getMarkers(markersGS, cutOff = "FDR <= 0.05 & Log2FC <= threshold")
-      for(i in names(markerList)){
-         markerList[[i]] <- markerList[[i]][order(markerList[[i]]$Log2FC, decreasing = FALSE),]
-      }
-   }
-
-   markerGenes <- list()
-      for (i in seq_len(length(markerList))) {
-      markerGenes <- c(markerGenes, markerList[[i]]$name)
-   }
-
-   if (length(markerGenes) == 0){
-      print("Marker genes vec is empty")
-      markerList <- c('')
-   } else {
-      markerGenes <- unique(unlist(markerGenes))
-   }
-
-   ############## Creating Seurat object
-   proj_in_tissue <- addImputeWeights(proj_in_tissue)
-   gene_score <- getMatrixFromProject(proj_in_tissue)
-   rownames(gene_score) <- rowData(gene_score)$name
-   gene_score <- imputeMatrix(assay(gene_score), getImputeWeights(proj_in_tissue))
-   gene_score <- log(gene_score+1, base = 2)
-   colnames(gene_score) <- gsub(pattern = paste0(project_name, "#|-1"), replacement = "", x= colnames(gene_score))
-
-   object <- CreateSeuratObject(counts = gene_score, assay = "Spatial", meta.data = meta.data)
-
-   image <- image[Cells(x = object)]
-   DefaultAssay(object = image) <- "Spatial"
-   object[["slice1"]] <- image
-   spatial_in_tissue.obj <- object
-
-   spatial_in_tissue.obj$orig.ident = as.factor(project_name)
-   Idents(spatial_in_tissue.obj) = 'orig.ident'
-   spatial_in_tissue.obj = AddMetaData(spatial_in_tissue.obj, spatial_in_tissue.obj@images$slice1@coordinates)
-
-   ############### Add log2 nFrags back to tissue_positions_list
-   tissue_positions_list = read.csv(file = file.path(spatialFolder,'tissue_positions_list.csv'), header = 0)
-   meta_tixels <- rownames(meta.data)
-   n_frags <- meta.data$nFrags
-
-   n_frags_df <- data.frame(nFrags_log = log(x = n_frags + 1, base = 2))
-   rownames(n_frags_df) <- meta_tixels
-   tissue_positions_list_m <- merge(tissue_positions_list, n_frags_df, by.x = 'V1', by.y = 'row.names')
-   tissue_positions_list_m$nFrags_log_dupe <- tissue_positions_list_m$nFrags_log
-   write.table(tissue_positions_list_m, file.path(spatialFolder, "tissue_positions_list_log_nFrags.csv"), col.names = FALSE, row.names = FALSE, sep = ',')                              
-                               
-
-Once the spatial objects have been generated, various metadata and gene score information can now be plotted
-back to spatial images using standard Seurat functions such as SpatialDimPlot:: 
-
-   ############## Plotting the Spatial map
-   spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
-   plot_spatial = Seurat::SpatialDimPlot(
-       spatial_in_tissue.obj,
-       group.by = "Clusters",
-       label = FALSE, label.size = 3,
-       pt.size.factor = pt_size_factor, cols = cols, stroke = 0) + 
-       theme(
-          plot.title = element_blank(),
-          legend.position = "right",
-          text=element_text(size=21)) +
-          ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=21)) 
-
-   plot_spatial$layers[[1]]$aes_params <-
-   c(plot_spatial$layers[[1]]$aes_params, shape=22)
-
-   plot_spatial
-
-Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
-function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
-
+   Introduction
