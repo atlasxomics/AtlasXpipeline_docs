@@ -1,8 +1,8 @@
-Introduction
-____________
+Spatial Epigenome
+_________________
 
-Description
------------
+Overview of Visualization
+-------------------------
 The aim of this tutorial is to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
 prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
 this tutorial centers around the usage of both `ArchR  <https://www.archrproject.com/bookdown/index.html>`_
