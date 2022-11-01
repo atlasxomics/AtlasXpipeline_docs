@@ -184,7 +184,7 @@ ATAC object containing all of the spatial information and metadata computed in A
    meta_tixels <- rownames(meta.data)
    n_frags <- meta.data$nFrags
 
-   n_frags_df <- data.frame(nFrags_log = log(x = n_frags + 1, base = 2))
+   n_frags_df <- data.frame(nFrags_log = log(x = n_frags + 1, base = 10))
    rownames(n_frags_df) <- meta_tixels
    tissue_positions_list_m <- merge(tissue_positions_list, n_frags_df, by.x = 'V1', by.y = 'row.names')
    tissue_positions_list_m$nFrags_log_dupe <- tissue_positions_list_m$nFrags_log
