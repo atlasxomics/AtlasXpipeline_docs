@@ -29,6 +29,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 
 .. toctree::
    :maxdepth: 3
-   :caption: Epigenome Data Analysis:
+   :caption: AtlasXomics:
 
-   Introduction
+   Spatial Epigenome
+   Spatial Transcriptome
