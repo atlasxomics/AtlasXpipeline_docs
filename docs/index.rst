@@ -33,3 +33,5 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 
    Spatial Epigenome
    Spatial Transcriptome
+
+.. image:: /images/atlasbg.png
