@@ -31,12 +31,12 @@ Load needed libraries: ::
 
 Before starting downstream analysis in ArchR, a few global parameters must be set: ::
 
-For data species, a string must be called referring to either mouse 'mm10', human 'hg38', rat 'rn06', or a custom reference. An integer must be assigned 
+For data species, a string must be called referring to either mouse 'mm10', human 'hg38', rat 'rnor6', or a custom reference. An integer must be assigned 
 to num_threads specifying the number of threads to use for ArchR. For tile size we define an integer specifying the bin size of the genome. min_Frags 
 refers to the minimum number of mapped ATAC-seq fragments required per tixel when creating arrowFile(s). This filters out tixels that fail to reach that 
-criterion. Min_TSS, or Minimum transcription start site enrichment score, acts similarly as it is used for tixel filtering when creating arrowFile(s). 
-
-   data_species <- 'mm10'
+criterion. Min_TSS, or Minimum transcription start site enrichment score, acts similarly as it is used for tixel filtering when creating arrowFile(s). ::
+  
+  data_species <- 'mm10'
    num_threads <- 1
    tile_size <- 5000  
    genomeSize = 3.0e+09
@@ -45,6 +45,7 @@ criterion. Min_TSS, or Minimum transcription start site enrichment score, acts s
    set.seed(1234)
    inputFile <- "/path/to/fragments.tsv.gz"
    project_name <- 'Control'
+
 
 Once generating the needed fragments.tsv file outputted from Cellranger for a specific sample, we can now create
 an ArchR **ArrowFile** which will form the basis of our ATAC analysis. During the ArrowFile creation step, all of the
