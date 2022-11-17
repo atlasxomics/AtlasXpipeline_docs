@@ -31,6 +31,9 @@ Load needed libraries: ::
 
 Before starting downstream analysis in ArchR, a few global parameters must be set: ::
 
+Inputs
+-------------
+
 For data species, a string must be called referring to either mouse 'mm10', human 'hg38', rat 'rnor6', or a custom reference. An integer must be assigned 
 to num_threads specifying the number of threads to use for ArchR. For tile size we define an integer specifying the bin size of the genome. min_Frags 
 refers to the minimum number of mapped ATAC-seq fragments required per tixel when creating arrowFile(s). This filters out tixels that fail to reach that 
