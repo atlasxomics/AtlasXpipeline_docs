@@ -6,7 +6,7 @@ Overview of Visualization
 This tutorial aims to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
 prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
 this tutorial centers around the usage of both `ArchR  <https://www.archrproject.com/bookdown/index.html>`_
-and `Seurat <https://satijalab.org/seurat>`_ to create a spatially resolved ATAC object from which we can map ATAC gene scores 
+and `Seurat <https://satijalab.org/seurat>`_ to create a spatially resolved ATAC object from which ATAC gene scores are mapped
 back to the tissue histology. Each step in this analysis workflow closely follows standard scATAC downstream analysis 
 as outlined in ArchR's tutorial.
 
@@ -17,13 +17,11 @@ Load needed libraries: ::
 
    library(ArchR)
    library(Seurat)
-   library(grid)
    library(patchwork)
    library(gridExtra)
    library(kableExtra)
    library(dplyr)
    library(tibble)
-   library(hdf5r)
    library(clusterProfiler)
    library(org.Mm.eg.db)
    library(repr)
@@ -78,7 +76,7 @@ arbitrary 'Control' sample is created::
       TileMatParams = list(tileSize = tile_size)
    )
 
-ArchR can then access this data by associating the newly created ArrowFiles with an **ArchRProject**. An ArchRProject is 
+ArchR accesses this data by associating the newly created ArrowFiles with an **ArchRProject**. An ArchRProject is 
 a data structure stored in memory that can be easily accessed/mutated by R. Every operation on the ArchRProject affects its associated
 ArrowFile. All of the archR downstream analysis will take place on the ArchRProject. To create an ArchRProject, pass in the previously
 created ArrowFiles object to the ArchRProject function call ::
@@ -192,13 +190,14 @@ ATAC object containing all of the spatial information and metadata computed in A
                                
 
 Once the spatial objects are generated, various metadata and gene score information can be plotted
-back to spatial images using standard Seurat functions such as SpatialDimPlot:: 
+back to spatial images using standard Seurat functions such as SpatialDimPlot. Optional aesthetic parameters such as **pt_size_factor** and **cols** are passed to control size of the tixel and color palette displayed in the graphic::
 
    ############## Plotting the Spatial map
    spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
    plot_spatial = Seurat::SpatialDimPlot(
        spatial_in_tissue.obj,
        label = FALSE, label.size = 3,
+       group.by = "Clusters",
        pt.size.factor = pt_size_factor, cols = cols, stroke = 0) + 
        theme(
           plot.title = element_blank(),
