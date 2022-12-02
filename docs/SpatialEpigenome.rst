@@ -255,7 +255,7 @@ Various metadata metrics found in metadata slot can also be plotted. Here, quali
    plot_metadata
    
 .. image:: ./images/metadata_hist.png
-  :width: 800
+  :width: 650
   :alt: Plots displaying quality control metrics on histology
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
