@@ -191,7 +191,8 @@ ATAC object containing all of the spatial information and metadata computed in A
 
 Once the spatial objects are generated, various metadata and gene score information can be plotted
 back to spatial images using standard Seurat functions such as SpatialDimPlot. Optional aesthetic parameters such as **pt_size_factor** and **cols** are passed to control size of the tixel and color palette displayed in the graphic::
-
+   
+   ############## Define aesthetic parameters
    n_clusters <- length(unique(proj_in_tissue$Clusters))
    palette  = c("navyblue", "turquoise2", "tomato", "tan2", "pink", "mediumpurple1", "steelblue", "springgreen2","violetred", "orange", "violetred", "slateblue1",  "violet", "purple",
                 "purple3","blue2",  "pink", "coral2", "palevioletred", "red2", "yellowgreen", "palegreen4",
@@ -200,14 +201,13 @@ back to spatial images using standard Seurat functions such as SpatialDimPlot. O
    cols <- palette[seq_len(n_clusters)]
    names(cols) <- names(proj_in_tissue@sampleMetadata)
    names(cols) <- paste0('C', seq_len(n_clusters))
-
    cols_hex <- lapply(X = cols, FUN = function(x){
        do.call(rgb, as.list(col2rgb(x)/255))
    })
    cols <- unlist(cols_hex)
-
    pt_size_factor <- 1
-
+   
+   ############## Plotting UMAP/cluster identities to spatial histology
    spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
    plot_spatial = Seurat::SpatialDimPlot(
        spatial_in_tissue.obj,
@@ -221,19 +221,31 @@ back to spatial images using standard Seurat functions such as SpatialDimPlot. O
           ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=21))
 
    plot_spatial$layers[[1]]$aes_params <- c(plot_spatial$layers[[1]]$aes_params, shape=22)
-
-   plot_spatial
+   
+   plot_umap = plotEmbedding(
+     ArchRProj = proj_in_tissue,
+     pal = cols,
+     colorBy = "cellColData",
+     name = "Clusters",
+     embedding = "UMAP",
+     size = 2) +
+     theme(
+       plot.title = element_blank(),
+       legend.position = "none",
+       text=element_text(size=21))
+   
+   cluster_plots <- plot_spatial + plot_umap
+   cluster_plots
 
 Various metadata metrics found in metadata slot can also be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel's spatial coordinate with optional graphic aesthetics applied::
 
+   ############## Plotting quality control metrics to spatial histology
    spatial_in_tissue.obj@meta.data$log10_nFrags <- log10(spatial_in_tissue.obj@meta.data$nFrags)
    plot_metadata = SpatialFeaturePlot(
      object = spatial_in_tissue.obj,
      features = c("log10_nFrags", "NucleosomeRatio", "TSSEnrichment"),
-     alpha = c(0.2, 1), pt.size.factor = pt_size_factor) +
-     #ggtitle(paste0("On Tissue Fragment (", project_name, ")")) + 
+     alpha = c(0.2, 1), pt.size.factor = pt_size_factor) + 
      theme(plot.title = element_text(hjust = 0.5), text=element_text(size=10))
-
    plot_metadata$layers[[1]]$aes_params <-c(plot_metadata$layers[[1]]$aes_params, shape=22)
 
    plot_metadata
