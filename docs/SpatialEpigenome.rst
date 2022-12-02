@@ -237,6 +237,10 @@ back to spatial images using standard Seurat functions such as SpatialDimPlot. O
    cluster_plots <- plot_spatial + plot_umap
    cluster_plots
 
+.. image:: ./images/cluster_plots.png
+  :width: 400
+  :alt: Plots displaying umap embeddings and cluster identies on histology
+
 Various metadata metrics found in metadata slot can also be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel's spatial coordinate with optional graphic aesthetics applied::
 
    ############## Plotting quality control metrics to spatial histology
@@ -249,6 +253,9 @@ Various metadata metrics found in metadata slot can also be plotted. Here, quali
    plot_metadata$layers[[1]]$aes_params <-c(plot_metadata$layers[[1]]$aes_params, shape=22)
 
    plot_metadata
-
+   
+.. image:: ./images/metadata_hist.png
+  :width: 400
+  :alt: Plots displaying quality control metrics on histology
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
