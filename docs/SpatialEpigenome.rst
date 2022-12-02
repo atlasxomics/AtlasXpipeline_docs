@@ -241,7 +241,7 @@ back to spatial images using standard Seurat functions such as SpatialDimPlot. O
   :width: 800
   :alt: Plots displaying umap embeddings and cluster identies on histology
 
-Various metadata metrics found in metadata slot can also be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel's spatial coordinate with optional graphic aesthetics applied::
+Various metadata metrics found in metadata slot can be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel's spatial coordinate. Optional graphical aesthetics are applied to the figures: ::
 
    ############## Plotting quality control metrics to spatial histology
    spatial_in_tissue.obj@meta.data$log10_nFrags <- log10(spatial_in_tissue.obj@meta.data$nFrags)
