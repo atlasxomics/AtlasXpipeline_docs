@@ -192,51 +192,51 @@ ATAC object containing all of the spatial information and metadata computed in A
 Once the spatial objects are generated, various metadata and gene score information can be plotted
 back to spatial images using standard Seurat functions such as SpatialDimPlot. Optional aesthetic parameters such as **pt_size_factor** and **cols** are passed to control size of the tixel and color palette displayed in the graphic::
 
-n_clusters <- length(unique(proj_in_tissue$Clusters))
-palette  = c("navyblue", "turquoise2", "tomato", "tan2", "pink", "mediumpurple1", "steelblue", "springgreen2","violetred", "orange", "violetred", "slateblue1",  "violet", "purple",
-             "purple3","blue2",  "pink", "coral2", "palevioletred", "red2", "yellowgreen", "palegreen4",
-              "wheat2", "tan", "tan3", "brown",
-              "grey70", "grey50", "grey30")
-cols <- palette[seq_len(n_clusters)]
-names(cols) <- names(proj_in_tissue@sampleMetadata)
-names(cols) <- paste0('C', seq_len(n_clusters))
+   n_clusters <- length(unique(proj_in_tissue$Clusters))
+   palette  = c("navyblue", "turquoise2", "tomato", "tan2", "pink", "mediumpurple1", "steelblue", "springgreen2","violetred", "orange", "violetred", "slateblue1",  "violet", "purple",
+                "purple3","blue2",  "pink", "coral2", "palevioletred", "red2", "yellowgreen", "palegreen4",
+                 "wheat2", "tan", "tan3", "brown",
+                 "grey70", "grey50", "grey30")
+   cols <- palette[seq_len(n_clusters)]
+   names(cols) <- names(proj_in_tissue@sampleMetadata)
+   names(cols) <- paste0('C', seq_len(n_clusters))
 
-cols_hex <- lapply(X = cols, FUN = function(x){
-    do.call(rgb, as.list(col2rgb(x)/255))
-})
-cols <- unlist(cols_hex)
+   cols_hex <- lapply(X = cols, FUN = function(x){
+       do.call(rgb, as.list(col2rgb(x)/255))
+   })
+   cols <- unlist(cols_hex)
 
-pt_size_factor <- 1
+   pt_size_factor <- 1
 
-spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
-plot_spatial = Seurat::SpatialDimPlot(
-    spatial_in_tissue.obj,
-    label = FALSE, label.size = 3,
-    group.by = "Clusters",
-    pt.size.factor = pt_size_factor, cols = cols, stroke = 0) +
-    theme(
-       plot.title = element_blank(),
-       legend.position = "right",
-       text=element_text(size=21)) +
-       ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=21))
+   spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
+   plot_spatial = Seurat::SpatialDimPlot(
+       spatial_in_tissue.obj,
+       label = FALSE, label.size = 3,
+       group.by = "Clusters",
+       pt.size.factor = pt_size_factor, cols = cols, stroke = 0) +
+       theme(
+          plot.title = element_blank(),
+          legend.position = "right",
+          text=element_text(size=21)) +
+          ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=21))
 
-plot_spatial$layers[[1]]$aes_params <- c(plot_spatial$layers[[1]]$aes_params, shape=22)
+   plot_spatial$layers[[1]]$aes_params <- c(plot_spatial$layers[[1]]$aes_params, shape=22)
 
-plot_spatial
+   plot_spatial
 
-Various metadata metrics found in spatial_in_tissue@meta.data can also be plotted. Here, quality metrics like log-scaled fragment counts and TSS enrichment scores are plotted against each tixel's spatial coordinate with optional graphic aesthetics applied::
+Various metadata metrics found in metadata slot can also be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel's spatial coordinate with optional graphic aesthetics applied::
 
-spatial_in_tissue.obj@meta.data$log10_nFrags <- log10(spatial_in_tissue.obj@meta.data$nFrags)
-plot_metadata = SpatialFeaturePlot(
-  object = spatial_in_tissue.obj,
-  features = c("log10_nFrags", "NucleosomeRatio", "TSSEnrichment"),
-  alpha = c(0.2, 1), pt.size.factor = pt_size_factor) +
-  #ggtitle(paste0("On Tissue Fragment (", project_name, ")")) + 
-  theme(plot.title = element_text(hjust = 0.5), text=element_text(size=10))
+   spatial_in_tissue.obj@meta.data$log10_nFrags <- log10(spatial_in_tissue.obj@meta.data$nFrags)
+   plot_metadata = SpatialFeaturePlot(
+     object = spatial_in_tissue.obj,
+     features = c("log10_nFrags", "NucleosomeRatio", "TSSEnrichment"),
+     alpha = c(0.2, 1), pt.size.factor = pt_size_factor) +
+     #ggtitle(paste0("On Tissue Fragment (", project_name, ")")) + 
+     theme(plot.title = element_text(hjust = 0.5), text=element_text(size=10))
 
-plot_metadata$layers[[1]]$aes_params <-c(plot_metadata$layers[[1]]$aes_params, shape=22)
-  
-plot_metadata
+   plot_metadata$layers[[1]]$aes_params <-c(plot_metadata$layers[[1]]$aes_params, shape=22)
+
+   plot_metadata
 
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
