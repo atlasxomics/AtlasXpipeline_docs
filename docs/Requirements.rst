@@ -8,7 +8,7 @@
 
 .. code-block::
 
-install.packages("ArchR")
+ install.packages("ArchR")
  
 4. To install Seurat, you will need to first install some other R packages that Seurat depends on. You can do this by running the following commands:
  
