@@ -33,11 +33,19 @@ Before starting downstream analysis in ArchR, a few global parameters must be se
 
 Inputs
 -------------
+Data species, number of threads, tile size, genome size, minimum TSS, minimum fragments, and set seed are all parameters that can be specified when using the ArchR R package for basic downstream spatial ATAC analysis prepared by the DBiT-seq protocol.
 
-For data species, a string must be called referring to either mouse 'mm10', human 'hg38', rat 'rnor6', or a custom reference. An integer must be assigned 
-to num_threads specifying the number of threads to use for ArchR. For tile size we define an integer specifying the bin size of the genome. min_Frags 
-refers to the minimum number of mapped ATAC-seq fragments required per tixel when creating arrowFile(s). This filters out tixels that fail to reach that 
-criterion. Min_TSS, or Minimum transcription start site enrichment score, acts similarly as it is used for tixel filtering when creating arrowFile(s). ::
+**Data species** refers to the type of organism being analyzed, such as mouse 'mm10', human 'hg38', rat 'rnor6', or a custom reference.
+
+**Number of threads** specifies the number of parallel threads to use when running the analysis, which can improve the efficiency of the analysis by allowing it to run on multiple cores of a computer's processor. An integer must be assigned to num_threads specifying the number of threads to use for ArchR. 
+
+**Tile size** specifies the size of the tiles that will be used to divide the genome into smaller regions for analysis. For tile size we define an integer specifying the bin size of the genome.
+
+**Genome size** specifies the size of the genome being analyzed.
+
+**Minimum TSS and minimum fragments** specify the minimum number of transcription start sites and fragments that must be detected in a region for it to be considered significant. min_Frags refers to the minimum number of mapped ATAC-seq fragments required per tixel when creating arrowFile(s).
+
+**Set seed** is a parameter that can be used to specify a seed value for the random number generator used by the analysis, which can be useful for reproducing results. ::
   
   data_species <- 'mm10'
   num_threads <- 1
