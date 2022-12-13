@@ -36,6 +36,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
    Requirements
    SpatialEpigenome
    SpatialTranscriptome
+   Spatial_Plots_Enriched_Motifs
    Glossary
    FAQ_Spatial_Epigenome
 
