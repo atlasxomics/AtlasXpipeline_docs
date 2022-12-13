@@ -25,7 +25,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
    Genome Browser <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GenomeBrowser.html>
    Motif Search <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/MotifSearch.html>
    Lasso Selector <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/LassoSelector.html>
-   Cell Type Labeling <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Customization.html>
+   Cell Type Labeling <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/CellTypeLabeling.html>
    Plot Saving <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/SavingPlots.html>
    FAQ <https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/FAQ.html>
 
