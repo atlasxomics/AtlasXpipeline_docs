@@ -1,4 +1,4 @@
-**Requirements**
+**Installation**
 ##############################
 1. First, make sure you have R and RStudio installed on your computer. If you don't already have them, you can download and install R from the CRAN website (https://cran.r-project.org/) and RStudio from the RStudio website (https://rstudio.com/).
 
