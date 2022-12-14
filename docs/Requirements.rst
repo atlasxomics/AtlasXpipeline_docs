@@ -25,5 +25,5 @@
   library(Seurat)
 
 At this point, you should be ready to use ArchR and Seurat. You can refer to the documentation for each tool to learn how to use them for your specific analysis tasks.
-ArchR: https://www.biorxiv.org/content/early/2018/08/09/384885
+ArchR: https://www.archrproject.com/
 Seurat: https://satijalab.org/seurat/
