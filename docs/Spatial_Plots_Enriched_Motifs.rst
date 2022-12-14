@@ -101,6 +101,9 @@ Apply addImputeWeights to the input Seurat object and assign the result to the v
 
   proj_in_tissue <- addImputeWeights(proj_in_tissue)
 
+Deviation scores and matrices
+#####################################
+
 Apply getDeviation_ArchR to the modified Seurat object and the list of motifs, along with the result of applying the getImputeWeights function to the modified Seurat object. Assign the result to the variable dev_score. ::
 
   dev_score <- getDeviation_ArchR(ArchRProj = proj_in_tissue, name = motifs, imputeWeights = getImputeWeights(proj_in_tissue))
@@ -112,6 +115,9 @@ Set all NA values in dev_score to 0. ::
 Create a new Seurat object using the dev_score matrix and the metadata from the input Seurat object, and assign the result to the variable object. ::
 
   object <- CreateSeuratObject(counts = dev_score, assay = "Spatial", meta.data = meta.data)
+  
+Filtering and setting default assay
+######################################
 
 Load image from a specified directory, filter the image based on the cells present in the object Seurat object, and set the image as the default assay for object.
 
@@ -123,6 +129,9 @@ Assign object to the variable spatial.obj. ::
       object[['slice1']] <- image
 
   spatial.obj <- object
+
+Creating Spattial plots for enriched motifs
+################################################
 
 Create a list of plots called motif_list. For each enriched motif in the spatial.obj object, create a plot using SpatialPlot_new(). The features argument specifies the motif to plot, and the pt.size.factor argument specifies the size of the points on the plot. The image.alpha and stroke arguments control the transparency and stroke width of the plot. The alpha argument controls the transparency of the points on the plot. The min.cutoff and max.cutoff arguments specify the minimum and maximum values to include on the plot. Then sets the shape of the points to squares using the shape parameter. Add the resulting plot to motif_list. ::
 
