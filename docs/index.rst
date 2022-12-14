@@ -33,7 +33,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
    :maxdepth: 3
    :caption: AtlasXomics:
 
-   Requirements
+   Installation
    SpatialEpigenome
    SpatialTranscriptome
    Spatial_Plots_Enriched_Motifs
