@@ -130,7 +130,7 @@ Assign object to the variable spatial.obj. ::
 
   spatial.obj <- object
 
-Creating Spattial plots for enriched motifs
+Creating Spatial plots for enriched motifs
 ################################################
 
 Create a list of plots called motif_list. For each enriched motif in the spatial.obj object, create a plot using SpatialPlot_new(). The features argument specifies the motif to plot, and the pt.size.factor argument specifies the size of the points on the plot. The image.alpha and stroke arguments control the transparency and stroke width of the plot. The alpha argument controls the transparency of the points on the plot. The min.cutoff and max.cutoff arguments specify the minimum and maximum values to include on the plot. Then sets the shape of the points to squares using the shape parameter. Add the resulting plot to motif_list. ::
