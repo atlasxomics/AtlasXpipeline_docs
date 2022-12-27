@@ -150,10 +150,15 @@ In case of any error or warning, handle them using the tryCatch function: ::
     }
   )
 Create a function called Load_AtlasXomics to read the AtlasXomics spatial dataset into a Seurat object. It accepts several parameters: 
+
 *data.dir:* The directory containing matrix.mtx, genes.tsv, barcodes.tsv along with a subdirectory spatial containing .png tissue image, scalefactors_json.json, and tissue_positions_list.csv.
+
 *assay:* The name of the assay to assign to the data within the Seurat object (default is 'Spatial').
+
 *slice:* The name of the tissue to assign to the data within the Seurat object (default is 'slice1').
+
 *filter.matrix:* A logical value indicating whether to filter the spatial expression matrix based on known tissue positions (default is TRUE).
+
 *to.upper:* A logical value indicating whether to convert the row names of the data matrix to uppercase (default is FALSE). ::
 
   Load_AtlasXomics <- function(
@@ -212,7 +217,7 @@ Add the image data to the Seurat object using the [[]] operator, setting the sli
 
   object[[slice]] <- image
 
-If filter.matrix is TRUE, subset the Seurat object to only include rows that are on tissue cells using the rownames function.
+If filter.matrix is TRUE, subset the Seurat object to only include rows that are on tissue cells using the rownames function. ::
 
   if (filter.matrix) {
     on_tissue_cells <- rownames(object@images$slice1@coordinates)
@@ -227,17 +232,21 @@ Create a Seurat object called object_AXOSpatial_seurat by calling the Load_Atlas
 Create a Seurat object called object_AXOSpatial_seurat_all_tixels by calling the Load_AtlasXomics function with the data.dir argument set to dataset and the filter.matrix argument set to FALSE. ::
 
   object_AXOSpatial_seurat_all_tixels = Load_AtlasXomics(data.dir = dataset, filter.matrix = FALSE)
+
 Add a new metadata column called orig.ident to both object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels, setting the value to project_name as a factor. ::
 
   object_AXOSpatial_seurat$orig.ident = as.factor(project_name)
   object_AXOSpatial_seurat_all_tixels$orig.ident = as.factor(project_name)
+
 Set the Idents of both object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels to 'orig.ident'. ::
 
   Idents(object_AXOSpatial_seurat) = 'orig.ident'
   Idents(object_AXOSpatial_seurat_all_tixels) = 'orig.ident'
+
 Create a new object called object_AXOSpatial_seurat_all_tixels0 that is a copy of object_AXOSpatial_seurat_all_tixels. ::
   
   object_AXOSpatial_seurat_all_tixels0 <- object_AXOSpatial_seurat_all_tixels
+
 Add new metadata columns to object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels using the PercentageFeatureSet function. ::
 
   object_AXOSpatial_seurat[["percent.mt"]] <- PercentageFeatureSet(object_AXOSpatial_seurat, pattern = "^[Mm][Tt]-")
@@ -306,9 +315,9 @@ Create a bar plot of the nCount_Spatial values by row using ggplot2. Assign the 
   umi_column <-ggplot(data=meta.data_plots, aes(x=row, y=nCount_Spatial)) +
     geom_bar(stat="identity") + ylab('#UMIs / column') + xlab(paste('Column (', project_name, ')', sep="")) + theme(text=element_text(size=21))
 
-umi_QC = wrap_plots(umi_row, umi_column)
+  umi_QC = wrap_plots(umi_row, umi_column)
 
-ind the 5 rows and 5 columns with the lowest UMI counts:
+Find the 5 rows and 5 columns with the lowest UMI counts.
 
 Aggregate the meta.data_plots$nCount_Spatial column by the meta.data_plots$row column and sum the values.
 Sort the resulting data frame by the aggregated values in ascending order.
@@ -348,7 +357,7 @@ For object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels:
 
 Convert the Spatial@counts assay data to a data frame.
 Select only the columns in the data frame that have at least one non-zero value.
-Filter the original object_AXOSpatial_seurat or object_AXOSpatial_seurat_all_tixels object to only include the cells that are present in the filtered data frame.
+Filter the original object_AXOSpatial_seurat or object_AXOSpatial_seurat_all_tixels object to only include the cells that are present in the filtered data frame. ::
 
   object_AXOSpatial_seurat_all_tixels <- subset(object_AXOSpatial_seurat_all_tixels, subset = nFeature_Spatial > 50 & percent.mt < 30)
 
@@ -363,3 +372,47 @@ Filter the original object_AXOSpatial_seurat or object_AXOSpatial_seurat_all_tix
   mat2 = mat[, colSums(mat != 0) > 0]
 
   object_AXOSpatial_seurat_all_tixels = subset(object_AXOSpatial_seurat_all_tixels, cells = colnames(mat2))
+
+Iterate over the elements in the list c("nFeature_Spatial", "nCount_Spatial", "percent.mt", "percent.rb", "percent.hg"). For each element i, do the following:
+
+Create a plot using the VlnPlot function, with object_AXOSpatial_seurat as the input and i as the features argument.
+Add a box plot to the plot using the geom_boxplot function.
+Remove the legend from the plot using the NoLegend function.
+Assign the resulting plot to the element in a with the name i. ::
+
+  a = c()
+  #  VlnPlot(object_AXOSpatial_seurat, features = c("nFeature_Spatial", "nCount_Spatial", "percent.mt", "percent.rb", "percent.hg"), pt.size = 0.0, combine = FALSE) + NoLegend()
+  for(i in c("nFeature_Spatial", "nCount_Spatial", "percent.mt", "percent.rb", "percent.hg")){
+    a[[i]] <-VlnPlot(object_AXOSpatial_seurat, features = i, pt.size = 0.0) + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend()
+  }
+  
+Combine the plots in a into a single plot using the CombinePlots function, with a layout of 5 columns.::
+
+  a = CombinePlots(a, ncol = 5)
+
+Create a scatter plot of nCount_Spatial vs nFeature_Spatial for object_AXOSpatial_seurat using the FeatureScatter function.
+
+Set the point size to 1 and the color to black.
+Remove the legend from the plot using the NoLegend function.
+Set the text size to 21 using the theme function.
+Store the resulting plot in a variable b. ::
+
+  b = FeatureScatter(object_AXOSpatial_seurat, "nCount_Spatial", "nFeature_Spatial", pt.size = 1, cols = 'black', ) + NoLegend() +theme(text=element_text(size=21))
+  
+Create an empty plot using the ggdraw function and store it in a variable qcPlot. Add the plots a and b to the qcPlot plot in the specified positions and sizes using the draw_plot function. ::
+  qcPlot = ggdraw() +
+    draw_plot(a, x = 0, y = 1/2, width = 1, height = 1/2) +
+    draw_plot(b, x = 0, y = 0, width = 1, height = 1/2)
+    
+Set the scientific notation threshold to 999 using the options function. Calculate statistics for object_AXOSpatial_seurat using the qc_stats_df function and store the resulting data frame in a variable on_tiss_after_filter. Bind the data frame on_tiss_before_filter and on_tiss_after_filter together horizontally and store the result in a variable on_tiss_stats.::
+
+  options(scipen = 999)
+  on_tiss_after_filter <- qc_stats_df(object_AXOSpatial_seurat, row.name = "After Filtering")
+  on_tiss_stats <- cbind(on_tiss_before_filter , on_tiss_after_filter)
+
+Set the Idents of object_AXOSpatial_seurat_all_tixels to 'tissue'. ::
+  Idents(object_AXOSpatial_seurat_all_tixels) = 'tissue'
+
+
+
+
