@@ -415,6 +415,122 @@ Set the Idents of object_AXOSpatial_seurat_all_tixels to 'tissue'. ::
 
   Idents(object_AXOSpatial_seurat_all_tixels) = 'tissue'
 
+Check if the value 0 is not present in the Idents of object_AXOSpatial_seurat_all_tixels. If it is not present, do the following:
+Set the Idents of object_AXOSpatial_seurat_all_tixels to 'orig.ident'.
+Create a data frame with 0 values for UMI_Average_NT, UMI_std_NT, UMI_min_NT, UMI_max_NT, and percent_umi_off_tissue and a row name of 'After Filtering'.
+Transpose the data frame and store it in a variable off_tiss_filtered_df. ::
 
+  f(!0 %in% Idents(object_AXOSpatial_seurat_all_tixels)){
+    Idents(object_AXOSpatial_seurat_all_tixels) = 'orig.ident'
+    off_tiss_filtered_df <- data.frame(
+      UMI_Average_NT = 0,
+      UMI_std_NT = 0,
+      UMI_min_NT = 0,
+      UMI_max_NT = 0,
+      percent_umi_off_tissue = 0,
+      row.names = 'After Filtering'
+    ) %>% t()
+  } else {
 
+If the value 0 is present in the Idents of object_AXOSpatial_seurat_all_tixels, do the following:
+Filter object_AXOSpatial_seurat_all_tixels to only include cells with an ident of 0 and store the result in object_AXOSpatial_seurat_Non_Tissue.
+Set the Idents of object_AXOSpatial_seurat_all_tixels to 'orig.ident'.
+Calculate the mean, standard deviation, minimum, and maximum of the nCount_Spatial values for object_AXOSpatial_seurat_Non_Tissue and the percentage of UMI counts that are from off-tissue cells.
+Create a data frame with these calculated values and a row name of 'After Filtering'.
+Transpose the data frame and store it in a variable off_tiss_filtered_df. ::
 
+  object_AXOSpatial_seurat_Non_Tissue = subset(object_AXOSpatial_seurat_all_tixels, ident = 0)
+    Idents(object_AXOSpatial_seurat_all_tixels) = 'orig.ident'
+    off_tiss_filtered_df <- data.frame(
+      UMI_Average_NT = mean(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+      UMI_std_NT = sd(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+      UMI_min_NT = min(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+      UMI_max_NT = max(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+      percent_umi_off_tissue = sum(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial)/(sum(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial)+sum(object_AXOSpatial_seurat@meta.data$nCount_Spatial)),
+      row.names = 'After Filtering'
+    ) %>% t()
+  }
+
+Read a CSV file at the file path dataset/../Summary.csv and store the result in a data frame Sout. ::
+
+  Sout <- read.csv(file.path(dataset, "../Summary.csv"), header=FALSE, sep=",")
+
+Create a data frame with the following columns and values:
+
+run: project_name
+Num_tixels: the rounded value of on_tiss_after_filter['Num_Tixels']
+UMI_perc_off_tixel: the rounded value of off_tiss_filtered_df['percent_umi_off_tissue'] multiplied by 100
+Gene_per_tixel: the rounded value of on_tiss_after_filter['Genes_Average']
+UMI_per_tixel: the rounded value of on_tiss_after_filter['UMI_Average']
+Number_of_reads: the value in the second column of Sout
+
+  json_data_frame <- data.frame(run=project_name,
+                                Num_tixels=round(on_tiss_after_filter['Num_Tixels'], 2),
+                                UMI_perc_off_tixel=round(off_tiss_filtered_df['percent_umi_off_tissue'], 2)*100,
+                                Gene_per_tixel=round(on_tiss_after_filter['Genes_Average'], 2),
+                                UMI_per_tixel=round(on_tiss_after_filter['UMI_Average'], 2),
+                                Number_of_reads=Sout$V2[1])
+
+Convert the data frame to a JSON object using the toJSON function and set the indentation level to 4. Write the JSON object to a file at the file path dataset/spatial/stats.json. ::
+
+  jsonData <- toJSON(json_data_frame, indent=4)
+
+  write(jsonData, file.path(dataset, 'spatial', 'stats.json'))
+  
+Report 
+#################
+
+Calculate the number of valid reads by multiplying the value in the second column of Sout by the value in the third column of Sout.::
+
+  n_valid_reads <- Sout$V2[1] * Sout$V2[2]
+  
+Add a column called log_10_nUMI to object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels by taking the log base 10 of the nCount_Spatial values. ::
+
+  object_AXOSpatial_seurat$log_10_nUMI = log10(object_AXOSpatial_seurat@meta.data$nCount_Spatial)
+  object_AXOSpatial_seurat_all_tixels$log_10_nUMI = log10(object_AXOSpatial_seurat_all_tixels@meta.data$nCount_Spatial) 
+  
+Create two plots of spatial data:
+
+*plot_ALL:* a plot of all tixels in object_AXOSpatial_seurat_all_tixels with the log_10_nUMI values as the color, using the SpatialFeaturePlot function. The plot should have a title of "All Tixels (project_name)" and the legend position should be set to "right".
+
+*plot_Tissue:* a plot of only the tixels on tissue in object_AXOSpatial_seurat with the log_10_nUMI values as the color, using the SpatialFeaturePlot function. The plot should have a title of "On Tissue Tixels (project_name)" and the legend position should be set to "right". 
+
+Combine the two plots plot_ALL and plot_Tissue into a single plot using the wrap_plots function and store the result in a variable before_after_umiPlot. ::
+
+  plot_ALL <- SpatialFeaturePlot(object_AXOSpatial_seurat_all_tixels, features = "log_10_nUMI", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right") + ggtitle(paste("All Tixels (", project_name, ")", sep="")) + labs(color = 'log10_nUMI') + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=16))
+  
+  plot_Tissue <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "log_10_nUMI", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right") + ggtitle(paste("On Tissue Tixels (", project_name, ")", sep="")) + labs(color = 'log10_nUMI') + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=16))
+
+  before_after_umiPlot = wrap_plots(plot_ALL, plot_Tissue)
+
+Create two plots:
+
+plot1: a boxplot of the log_10_nUMI values for object_AXOSpatial_seurat, using the VlnPlot function.
+plot2: a plot of the spatial data for object_AXOSpatial_seurat with the log_10_nUMI values as the color, using the SpatialFeaturePlot function. ::
+
+   plot1 <- VlnPlot(object_AXOSpatial_seurat, features = "log_10_nUMI", pt.size = 0) + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("#UMIs / pixel") + labs(color = 'log10_nUMI')
+  plot2 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "log_10_nUMI", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right") + labs(color = 'log10_nUMI')
+  plot2
+
+  umiPlot = wrap_plots(plot1, plot2)
+
+Create plots that displays the number of genes per pixel for the object_AXOSpatial_seurat object. Plot1.5 is a violin plot showing the distribution of the number of genes per pixel. This plot is created using the VlnPlot() function from the seurat package and the geom_boxplot() function from the ggplot2 package. The VlnPlot() function plots the distribution of a feature for a given seurat object, and the geom_boxplot() function adds a boxplot to the plot created by VlnPlot().
+
+plot2.5 is a spatial feature plot showing the number of genes per pixel across all pixels. This plot is created using the SpatialFeaturePlot() function from the seurat package. This function plots the distribution of a feature for a given seurat object on a 2D grid, with each grid cell corresponding to a pixel. ::
+
+  plot1.5 <- VlnPlot(object_AXOSpatial_seurat, features = "nFeature_Spatial", pt.size = 0)  + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("#Genes / pixel")
+  plot2.5 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "nFeature_Spatial", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
+
+  genePlot = wrap_plots(plot1.5, plot2.5)
+
+Create plots that displays the percentage of mitochondrial and ribosomal genes per pixel for the object_AXOSpatial_seurat object. plot3, a boxplot, shows the distribution of the percentage of mitochondria per pixel. plot4, a scatterplot, shows the percentage of mitochondria per pixel for each pixel. These plots are created using the same process as the gene plot. ::
+
+  plot3 <- VlnPlot(object_AXOSpatial_seurat, features = "percent.mt", pt.size = 0)  + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("mt% / pixel")
+  plot4 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.mt", alpha = c(0.8, 1), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
+  mtPlot = wrap_plots(plot3, plot4)
+
+plot5, aboxplot, shows the distribution of the percentage of ribosomal genes per pixel. This plot is created using the same process above. plot6, a scatterplot, shows the percentage of ribosomal genes per pixel for each pixel. ::
+
+  plot5 <- VlnPlot(object_AXOSpatial_seurat, features = "percent.rb", pt.size = 0)  + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("rb% / pixel")
+  plot6 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.rb", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
+  rbPlot = wrap_plots(plot5, plot6)
