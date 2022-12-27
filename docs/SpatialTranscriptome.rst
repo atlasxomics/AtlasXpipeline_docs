@@ -462,7 +462,7 @@ Num_tixels: the rounded value of on_tiss_after_filter['Num_Tixels']
 UMI_perc_off_tixel: the rounded value of off_tiss_filtered_df['percent_umi_off_tissue'] multiplied by 100
 Gene_per_tixel: the rounded value of on_tiss_after_filter['Genes_Average']
 UMI_per_tixel: the rounded value of on_tiss_after_filter['UMI_Average']
-Number_of_reads: the value in the second column of Sout
+Number_of_reads: the value in the second column of Sout ::
 
   json_data_frame <- data.frame(run=project_name,
                                 Num_tixels=round(on_tiss_after_filter['Num_Tixels'], 2),
@@ -529,7 +529,7 @@ Create plots that displays the percentage of mitochondrial and ribosomal genes p
   plot4 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.mt", alpha = c(0.8, 1), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
   mtPlot = wrap_plots(plot3, plot4)
 
-plot5, aboxplot, shows the distribution of the percentage of ribosomal genes per pixel. This plot is created using the same process above. plot6, a scatterplot, shows the percentage of ribosomal genes per pixel for each pixel. ::
+plot5, a boxplot, shows the distribution of the percentage of ribosomal genes per pixel. This plot is created using the same process above. plot6, a scatterplot, shows the percentage of ribosomal genes per pixel for each pixel. ::
 
   plot5 <- VlnPlot(object_AXOSpatial_seurat, features = "percent.rb", pt.size = 0)  + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("rb% / pixel")
   plot6 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.rb", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
