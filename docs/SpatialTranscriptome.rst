@@ -400,6 +400,7 @@ Store the resulting plot in a variable b. ::
   b = FeatureScatter(object_AXOSpatial_seurat, "nCount_Spatial", "nFeature_Spatial", pt.size = 1, cols = 'black', ) + NoLegend() +theme(text=element_text(size=21))
   
 Create an empty plot using the ggdraw function and store it in a variable qcPlot. Add the plots a and b to the qcPlot plot in the specified positions and sizes using the draw_plot function. ::
+
   qcPlot = ggdraw() +
     draw_plot(a, x = 0, y = 1/2, width = 1, height = 1/2) +
     draw_plot(b, x = 0, y = 0, width = 1, height = 1/2)
@@ -411,6 +412,7 @@ Set the scientific notation threshold to 999 using the options function. Calcula
   on_tiss_stats <- cbind(on_tiss_before_filter , on_tiss_after_filter)
 
 Set the Idents of object_AXOSpatial_seurat_all_tixels to 'tissue'. ::
+
   Idents(object_AXOSpatial_seurat_all_tixels) = 'tissue'
 
 
