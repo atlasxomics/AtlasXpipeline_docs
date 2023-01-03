@@ -573,19 +573,22 @@ Subset the object to only include cells with the identifier 1 ::
 
 Perform single-cell transformation (SCT) on the assay data, using verbose output::
 
-  object_AXOSpatial_seurat <- SCTransform(object_AXOSpatial_seurat, assay = "Spatial", verbose = TRUE)::
+  object_AXOSpatial_seurat <- SCTransform(object_AXOSpatial_seurat, assay = "Spatial", verbose = TRUE)
 
 Run principal component analysis (PCA) on the SCT data, using verbose output
 
-  object_AXOSpatial_seurat <- RunPCA(object_AXOSpatial_seurat, assay = "SCT", verbose = TRUE)::
+  object_AXOSpatial_seurat <- RunPCA(object_AXOSpatial_seurat, assay = "SCT", verbose = TRUE)
 
 Find nearest neighbors of cells, using the PCA reduction::
+
   object_AXOSpatial_seurat <- FindNeighbors(object_AXOSpatial_seurat, reduction = "pca", dims = 1:30)
 
 Find clusters of cells, using a resolution of 0.4 and verbose output, with a random seed of 101::
+
   object_AXOSpatial_seurat <- FindClusters(object_AXOSpatial_seurat, resolution = .4, verbose = TRUE, random.seed = 101)
 
 Run UMAP on the PCA reduction::
+
   object_AXOSpatial_seurat <- RunUMAP(object_AXOSpatial_seurat, reduction = "pca", dims = 1:30, seed.use = 101)
   
 Create a data frame of statistics for each cluster
@@ -594,15 +597,19 @@ First, extract the metadata from the object::
 data = object_AXOSpatial_seurat@meta.data
 
 Calculate the total number of UMIs and genes for each cluster::
+
   per_cluster_stats <- aggregate(list(nUMI = data$nCount_SCT, nGene = data$nFeature_SCT), by = list(Cluster = data$SCT_snn_res.0.4), FUN=sum)
 
 Calculate the number of cells (tixels) in each cluster::
+
   cells_per_cluster <- as.data.frame(table(data$SCT_snn_res.0.4))
   colnames(cells_per_cluster) <- c('Cluster', 'nTixels')
 
 Merge the number of cells and the UMI/gene totals into a single data frame ::
+
   cluster_stats <- merge(x = cells_per_cluster, y =  per_cluster_stats, by = 'Cluster')
 
 Calculate the mean number of UMIs and genes per tixel for each cluster::
+
   umi_gene_per_tixel <- aggregate(list(mean_nUMI_per_tixel = data$nCount_SCT, mean_nGene_per_tixel = data$nFeature_SCT),by = list(Cluster = data$SCT_snn_res.0.4), FUN=mean)
 
