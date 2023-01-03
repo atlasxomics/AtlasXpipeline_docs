@@ -534,3 +534,35 @@ plot5, a boxplot, shows the distribution of the percentage of ribosomal genes pe
   plot5 <- VlnPlot(object_AXOSpatial_seurat, features = "percent.rb", pt.size = 0)  + geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) + NoLegend() + xlab("") + ylab("rb% / pixel")
   plot6 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.rb", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) + ggplot2::theme(legend.position = "right")
   rbPlot = wrap_plots(plot5, plot6)
+  
+Create Plot 7 by creating a violin plot of the percent.hg feature using the VlnPlot function and set the pt.size parameter to 0. Use the geom_boxplot function to add a boxplot to the plot, with a width of 0.1, a black outline, and a white fill. Use the NoLegend function to remove the legend and the xlab and ylab functions to label the x-axis and y-axis, respectively. ::
+
+  plot7 <- VlnPlot(object_AXOSpatial_seurat, features = "percent.hg", pt.size = 0)  +
+           geom_boxplot(width=0.1, color="black", fill="white", outlier.shape = NA) +
+           NoLegend() + xlab("") + ylab("hg% / pixel")
+           
+Create a spatial feature plot of the percent.hg feature using the SpatialFeaturePlot function and set the alpha parameter to a range of values and the pt.size.factor parameter to the pt_size_factor variable. Use the ggplot2::theme function to set the legend position to "right". ::
+
+  plot8 <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = "percent.hg", alpha = c(0.8, 2), pt.size.factor = pt_size_factor) +
+           ggplot2::theme(legend.position = "right")
+           
+Use the wrap_plots function to combine the violin plot and spatial feature plot into a single plot called hgPlot.::
+
+  hgPlot = wrap_plots(plot7, plot8)
+  
+Use the GetAssayData function to get the assay data for the Spatial assay and store it in the counts variable.::
+
+  counts <- GetAssayData(object_AXOSpatial_seurat, assay = "Spatial")
+
+Use the grep function to find the rows in counts that match the pattern "^[Mm][Tt]-" and store their indices in the mt.index variable. ::
+
+  mt.index <- grep(pattern = "^[Mm][Tt]-", x = rownames(counts), value = FALSE)
+
+Remove the rows corresponding to the mt.index from counts and update the object_AXOSpatial_seurat object with the updated counts matrix using the subset function.::
+
+  counts <- counts[-mt.index, ]
+  object_AXOSpatial_seurat <- subset(object_AXOSpatial_seurat, features = rownames(counts))
+
+Set the Idents of the object_AXOSpatial_seurat object to 'tissue'.
+
+  Idents(object_AXOSpatial_seurat) = 'tissue'
