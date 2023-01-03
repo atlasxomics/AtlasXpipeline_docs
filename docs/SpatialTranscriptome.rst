@@ -575,7 +575,7 @@ Perform single-cell transformation (SCT) on the assay data, using verbose output
 
   object_AXOSpatial_seurat <- SCTransform(object_AXOSpatial_seurat, assay = "Spatial", verbose = TRUE)
 
-Run principal component analysis (PCA) on the SCT data, using verbose output
+Run principal component analysis (PCA) on the SCT data, using verbose output ::
 
   object_AXOSpatial_seurat <- RunPCA(object_AXOSpatial_seurat, assay = "SCT", verbose = TRUE)
 
@@ -587,14 +587,14 @@ Find clusters of cells, using a resolution of 0.4 and verbose output, with a ran
 
   object_AXOSpatial_seurat <- FindClusters(object_AXOSpatial_seurat, resolution = .4, verbose = TRUE, random.seed = 101)
 
-Run UMAP on the PCA reduction::
+Run UMAP on the PCA reduction ::
 
   object_AXOSpatial_seurat <- RunUMAP(object_AXOSpatial_seurat, reduction = "pca", dims = 1:30, seed.use = 101)
   
 Create a data frame of statistics for each cluster
 First, extract the metadata from the object::
 
-data = object_AXOSpatial_seurat@meta.data
+  data = object_AXOSpatial_seurat@meta.data
 
 Calculate the total number of UMIs and genes for each cluster::
 
@@ -613,3 +613,41 @@ Calculate the mean number of UMIs and genes per tixel for each cluster::
 
   umi_gene_per_tixel <- aggregate(list(mean_nUMI_per_tixel = data$nCount_SCT, mean_nGene_per_tixel = data$nFeature_SCT),by = list(Cluster = data$SCT_snn_res.0.4), FUN=mean)
 
+Calculate the standard deviation of the number of UMIs and genes per tixel for each cluster::
+
+  std_umi_gene_tixel <- aggregate(list(std_nUMI_per_tixel = data$nCount_SCT, std_nGene_per_tixel = data$nFeature_SCT), by = list(Cluster = data$SCT_snn_res.0.4), FUN=sd)
+
+Merge the standard deviation of UMIs and genes per tixel into the cluster statistics data frame::
+  cluster_stats <- merge(x=cluster_stats, y=std_umi_gene_tixel, by = 'Cluster')
+
+Plot the object using DimPlot and SpatialDimPlot, coloring by the 'Paired' column and displaying labels::
+  p5 <- DimPlot(object_AXOSpatial_seurat, cols = "Paired", reduction = "umap", label = TRUE, pt.size = 2)
+  p6 <- SpatialDimPlot(object_AXOSpatial_seurat, cols = "Paired", label = TRUE, label.size = 3, pt.size.factor = pt_size_factor) + ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=16))
+
+Combine the two plots into a single object::
+  dimPlot = wrap_plots(p5 + p6)
+  
+Plot the object using SpatialDimPlot, highlighting cells with certain identities and displaying facets::
+  cellclusterPlot = SpatialDimPlot(object_AXOSpatial_seurat, cells.highlight = CellsByIdentities(object = object_AXOSpatial_seurat), facet.highlight = TRUE, ncol = 4, pt.size.factor = pt_size_factor)
+
+Display the plot::
+  cellclusterPlot
+
+Find all differentially expressed markers, catching any errors that might occur::
+  de_markers <- try(FindAllMarkers(object_AXOSpatial_seurat, only.pos = TRUE))
+
+If an error occurred during marker identification, skip this block::
+  if(inherits(de_markers, "try-error")){
+    print("FindAllMarkers() failed, skipping...")
+  } else {
+  
+Select the top 5 markers for each cluster by average log2 fold change::
+  top5 <- de_markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_log2FC)
+
+Generate a heatmap of the top 5 markers::
+
+    top5_heatmap <- DoHeatmap(object_AXOSpatial_seurat, top5$gene, slot = "scale.data")
+  } 
+
+Identify top 10 spatially variable genes
+########################################################
