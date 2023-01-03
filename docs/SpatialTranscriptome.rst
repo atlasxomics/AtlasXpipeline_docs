@@ -651,3 +651,87 @@ Generate a heatmap of the top 5 markers::
 
 Identify top 10 spatially variable genes
 ########################################################
+
+Identify top 10 spatially variable genes::
+
+  object_AXOSpatial_seurat <- FindSpatiallyVariableFeatures(object_AXOSpatial_seurat, assay = "SCT",
+                                                          features = VariableFeatures(object_AXOSpatial_seurat)[1:1000],
+                                                          selection.method = "markvariogram")
+
+Select the top 10 variable features::
+  top.features <- head(SpatiallyVariableFeatures(object_AXOSpatial_seurat, selection.method = "markvariogram"), 10)
+
+Create a list to store the plots of each top feature::
+  de_list <- list()
+
+Iterate through the top features and create a SpatialFeaturePlot for each one::
+  for(i in top.features){
+    de_list[[i]] <- SpatialFeaturePlot(object_AXOSpatial_seurat, features = i, ncol = 1, alpha = c(.8, 2), pt.size.factor = 1.85) +
+      ggplot2::scale_fill_gradientn(colours=inferno(20))
+  }
+
+Combine the plots into a single object with three columns::
+  top10_spatial_plots <- wrap_plots(de_list, ncol = 3)
+  
+Create a position file with log UMI and Genes
+########################################################
+
+Read in the tissue positions list CSV file::
+
+  tissue_positions_list = read.csv(file = file.path(dataset, 'spatial','tissue_positions_list.csv'), header = 0)
+
+Extract the coordinates and metadata from the object::
+
+  coord_all_tixels = object_AXOSpatial_seurat_all_tixels0@images$slice1@coordinates
+  meta_all_tixels = object_AXOSpatial_seurat_all_tixels0@meta.data
+
+Add a 'cell' column to the metadata with the row names as values::
+
+  meta_all_tixels$cell = rownames(meta_all_tixels)
+
+Merge the tissue positions list and metadata data frames by the 'V1' and 'cell' columns, respectively::
+  
+  tissue_positions_list_m <- merge(tissue_positions_list, meta_all_tixels, by.x = 'V1', by.y = 'cell')
+
+Remove the 'orig.ident' and 'V1' columns::
+
+  tissue_positions_list_m$orig.ident = NULL
+
+Take the logarithm (base 2) of the 'nCount_Spatial' and 'nFeature_Spatial' columns, adding 1 to the values before taking the logarithm::
+
+  tissue_positions_list_m$nCount_Spatial = log(tissue_positions_list_m$nCount_Spatial+1)
+  tissue_positions_list_m$nFeature_Spatial = log(tissue_positions_list_m$nFeature_Spatial+1)
+
+Write the modified data frame to a CSV file, with no row or column names, using a comma as the separator::
+
+  write.table(tissue_positions_list_m, file.path(dataset, 'spatial','tissue_positions_list_log_UMI_Genes.csv'), col.names = FALSE, row.names = FALSE, sep = ',')
+  
+Go Analysis
+############################
+
+Initialize a list to store the results of the Gene Ontology (GO) analysis
+Initialize a variable to keep track of whether the GO analysis failed::
+
+  GO_results = list()
+  GOFailed = 0
+
+Extract the clusters from the object's metadata and convert them to characters::
+  clusters = as.character(sort(as.numeric(unique(object_AXOSpatial_seurat@meta.data$SCT_snn_res.0.4))-1))
+
+Convert the 'cluster' column of the differentially expressed markers data frame to characters::
+
+  de_markers$cluster = as.character(de_markers$cluster)
+
+Iterate through each cluster::
+
+for (cluster_ in clusters) {
+  print(paste0("Cluster:", cluster_))
+  
+Extract the differentially expressed genes for the current cluster::
+
+  de_markers_cluster = dplyr::filter(de_markers, cluster == cluster_)$gene
+  
+If there are differentially expressed genes for the current cluster. Perform the Gene Ontology analysis::
+
+  if (length(de_markers_cluster) != 0) {
+    GOterms = topGOterms(fg.genes = de_markers_cluster, bg.genes = rownames(object_AXOSpatial
