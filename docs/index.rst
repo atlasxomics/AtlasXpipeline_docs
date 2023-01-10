@@ -35,9 +35,9 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 
    Installation
    SpatialEpigenome
-   SpatialTranscriptome[Under Development]
-   Spatial_Plots_Enriched_Motifs[Under Development]
-   Glossary[Under Development]
-   FAQ_Spatial_Epigenome[Under Development]
+   SpatialTranscriptome **[Under Development]**
+   Spatial_Plots_Enriched_Motifs **[Under Development]**
+   Glossary **[Under Development]**
+   FAQ_Spatial_Epigenome **[Under Development]**
 
 .. image:: ./images/atlasbg.png
