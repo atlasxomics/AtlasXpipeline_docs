@@ -1,4 +1,4 @@
-Spatial Transcriptome [Under Development]
+Spatial Transcriptome
 _____________________
 
 This program is designed to analyse and generate an analysis report in HTML format for AtlasXomics spatial datasets.
