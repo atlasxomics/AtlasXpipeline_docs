@@ -1,4 +1,4 @@
-Spatial Plots of Enriched Motifs [Under Development]
+Spatial Plots of Enriched Motifs 
 __________________________________
 
 We use the ArchR package to perform motif enrichment analysis on the dataset and identify enriched motifs. We then use the Seurat package to add spatial data to the analysis and plot the spatial data using the enriched motifs as the features. This allows us to visualize which motifs are enriched in specific regions of the tissue, visualize it's spatial distribution, and gain insights into the regulation of gene expression in the tissue.
@@ -7,15 +7,15 @@ We use the ArchR package to perform motif enrichment analysis on the dataset and
 **Call peaks and add group coverages and reproducible peak sets**
 ##############################################################################
 
-Use the addGroupCoverages function to call on the input ArchR project object, proj_in_tissue, to add group coverages to the object. The groupBy parameter specifies which metadata column to group the coverages by, in this case 'Clusters'. 
-The addGroupCoverages function calculates the average coverage of each peak in a single-cell RNA-seq dataset, grouped by 'Clusters'. The resulting object contains the average coverage of each peak in each group, along with metadata about the peaks and the groups.::
+Use the addGroupCoverages function to call on the input ArchR project object, proj_in_tissue, to add group coverages to the object. The groupBy parameter specifies which metadata column to group the coverages by, in this case 'Clusters'.  
+This function calculates the average coverage of each peak in a single-cell RNA-seq dataset, grouped by 'Clusters'. The resulting object contains the average coverage of each peak in each group, along with metadata about the peaks and the groups. This is done to obtain an understanding of the coverage of peaks across different clusters to provide insights into various cluster characteristics.::
 
 
   out_list <- tryCatch(expr = {
     proj_in_tissue <- addGroupCoverages(ArchRProj = proj_in_tissue, groupBy = "Clusters")
 
 
-Use the findMacs2 function to find the path to the macs2 program on the system. Then, use the addReproduciblePeakSet function to call on the proj_in_tissue to add reproducible peak sets to the object. The groupBy, pathToMacs2, and genomeSize parameters are used to specify the metadata column to group the peaks by, the path to the macs2 program, and the size of the genome. The force parameter is set to TRUE to force re-running the peak calling even if it has already been performed. ::
+Use the findMacs2 function to find the path to the macs2 program on the system. Then, use the addReproduciblePeakSet function to call on the proj_in_tissue to add reproducible peak sets to the object. The groupBy, pathToMacs2, and genomeSize parameters are used to specify the metadata column to group the peaks by, the path to the macs2 program, and the size of the genome. The force parameter is set to TRUE to force re-running the peak calling even if it has already been performed. This step is done to identify reproducible peaks across different clusters.::
 
     pathToMacs2 <- findMacs2()
     proj_in_tissue <- addReproduciblePeakSet(
@@ -29,7 +29,7 @@ Use the findMacs2 function to find the path to the macs2 program on the system. 
 Add peak matrices
 #######################################
 
-Use the addPeakMatrix function to call on proj_in_tissue to add a peak matrix to the object. This matrix is used to store the peak calls.::
+Use the addPeakMatrix function to call on proj_in_tissue to add a peak matrix to the object. This matrix is used to store the peak calls, which are regions of the genome that show an enrichment of reads when compared to a background. This step is done to create a data structure that can efficiently store and retrieve the peak calls, which can be used for downstream analysis.::
 
   proj_in_tissue <- addPeakMatrix(proj_in_tissue)
 
@@ -68,7 +68,7 @@ Save the project as an RDS file using the saveRDS() function. RDS files are a bi
 Get marker features and create list of enriched motifs
 ##############################################################################
 
-Use getMarkerFeatures() to identify marker features within the ArchRProj object. The identified markers are then filtered using getMarkers() and stored in the motifs variable. ::
+Use getMarkerFeatures() to identify marker features within the ArchRProj object. The identified markers are then filtered using getMarkers() and stored in the motifs variable. This step is done to identify markers that are specific to certain clusters.  ::
 
   markersMotifs <- getMarkerFeatures(
   ArchRProj = proj_in_tissue,
@@ -89,7 +89,7 @@ Use getMarkerFeatures() to identify marker features within the ArchRProj object.
     }
       
    
-If the input list of motifs has more than one element, converts the motif to a string, and add a "z:" prefix to each motif, remove duplicate motifs, and assign the resulting list of motifs to the variable motifs. ::
+If the input list of motifs has more than one element, converts the motif to a string, and add a "z:" prefix to each motif, remove duplicate motifs, and assign the resulting list of motifs to the variable motifs. We do this to create a list of enriched motifs that are specific to certain clusters. ::
 
      if (length(motifs)>1) {
        motifs <- unlist(motifs)
@@ -97,7 +97,7 @@ If the input list of motifs has more than one element, converts the motif to a s
    motifs <- unique(motifs)
 
 
-Apply addImputeWeights to the input Seurat object and assign the result to the variable proj_in_tissue. ::
+Apply addImputeWeights to the input Seurat object and assign the result to the variable proj_in_tissue. This step is done to improve the accuracy of the marker features by imputing missing values.::
 
   proj_in_tissue <- addImputeWeights(proj_in_tissue)
 
