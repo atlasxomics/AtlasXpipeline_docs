@@ -261,7 +261,7 @@ function methodology and documentation, please see ArchR's `tutorial  <https://w
 
 
 Spatial Plots of Enriched Motifs 
-__________________________________
+----------------------------------------------------
 
 We use the ArchR package to perform motif enrichment analysis on the dataset and identify enriched motifs. We then use the Seurat package to add spatial data to the analysis and plot the spatial data using the enriched motifs as the features. This allows us to visualize which motifs are enriched in specific regions of the tissue, visualize it's spatial distribution, and gain insights into the regulation of gene expression in the tissue.
 
@@ -432,3 +432,4 @@ Return a list containing the modified Seurat object, the spatial.obj object, and
   } else{
     print("out_list not returned")
   }
+
