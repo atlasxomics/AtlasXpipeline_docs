@@ -64,3 +64,21 @@ The repr and purrr libraries are used in the Spatial Epigenome analysis to impro
 *What is the significance of the D357 mouse embryo dataset in the Spatial Epigenome analysis?*
 
 The D357 mouse embryo dataset is used in the Spatial Epigenome analysis as an example dataset to demonstrate the downstream analysis steps and visualize the resulting data.
+
+*I am unable to install Seurat, what should I do?*
+
+Make sure that you have the latest version of R installed. Seurat may not be compatible with older versions of R.
+Make sure that you have the necessary dependencies installed. Seurat requires other R packages such as "dplyr", "ggplot2", "Matrix", and "SummarizedExperiment" to be installed.
+
+*I am getting an error message about Rtools when trying to install Seurat, what should I do?*
+
+If you are getting an error message about Rtools when trying to install Seurat, it means that Rtools is not installed on your system. Rtools is a collection of tools that are necessary for building R packages on Windows. You can download the latest version of Rtools from the CRAN website.
+
+*I am getting an error message about Bioconductor when trying to install Seurat, what should I do?*
+
+Seurat is available on Bioconductor, an R package repository for bioinformatics packages. If you are getting an error message about Bioconductor, it means that the Bioconductor repository is not installed on your system. You can install Bioconductor by running the following command in R: source("https://bioconductor.org/biocLite.R") then biocLite("Seurat")
+
+*I am unable to install patchwork, what should I do?*
+
+Make sure that you have the necessary dependencies installed. patchwork requires some other R packages such as "ggplot2" and "gridExtra" to be installed.
+patchwork is available on CRAN, an R package repository. If you are getting an error message about Bioconductor, it means that you are trying to install patchwork from the wrong repository. Bioconductor is for bioinformatics packages. You should install patchwork from CRAN by running the following command in R: install.packages("patchwork")
