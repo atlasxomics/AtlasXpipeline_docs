@@ -13,13 +13,3 @@ Glossary
 
 **Add Gene Score Mat:** The add gene score mat function is used to add a gene score matrix, which is a matrix of values indicating the likelihood that a particular region of a genome contains a gene.
 
-**Offset Plus:** Offset plus is a parameter that specifies the number of nucleotides to shift the tile matrix in the positive direction (i.e. to the right) when aligning it with the genome.
-
-**Offset Minus:** Offset minus is a parameter that specifies the number of nucleotides to shift the tile matrix in the negative direction (i.e. to the left) when aligning it with the genome.
-
-**Force:** The force parameter is a logical value that specifies whether to overwrite existing tile or gene score matrices when using the add tile mat or add gene score mat functions.
-
-**Tile Mat Parameters:** Tile mat parameters are a set of parameters that control the behavior of the add tile mat function, such as the offset plus and offset minus values mentioned above. These parameters can be set to customize the alignment of the tile matrix with the genome.
-
-
-
