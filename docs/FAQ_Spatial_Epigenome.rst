@@ -82,3 +82,12 @@ Seurat is available on Bioconductor, an R package repository for bioinformatics 
 
 Make sure that you have the necessary dependencies installed. patchwork requires some other R packages such as "ggplot2" and "gridExtra" to be installed.
 patchwork is available on CRAN, an R package repository. If you are getting an error message about Bioconductor, it means that you are trying to install patchwork from the wrong repository. Bioconductor is for bioinformatics packages. You should install patchwork from CRAN by running the following command in R: install.packages("patchwork")
+
+*Why do we include certain dependencies like gridExtra, patchwork, kableExtra etc. if they only relate to plotting/graphics handling?*
+
+These dependencies are included because they provide useful functions and features for creating and customizing plots and tables in R. The ArchR package is an R package for spatial analysis of ATAC-seq data, and creating plots and tables is an important aspect of visualizing and interpreting the results of this analysis. The dependencies like gridExtra, patchwork, kableExtra, etc. are used to create and customize plots and tables in a way that is aesthetically pleasing and easy to read. Additionally, these dependencies also provide more advanced functionality such as grid layout, table formatting and annotation, which is helpful to make the results more informative and easy to understand.
+
+*Are these dependencies necessary for the functionality of the ArchR package?*
+
+No, these dependencies are not necessary for the core functionality of the ArchR package. The ArchR package provides functions for performing spatial analysis of ATAC-seq data and the dependencies are not required for the analysis itself. However, they are required if you want to use the built-in functions for creating plots and tables, which is an important part of visualizing and interpreting the results of the analysis.
+
