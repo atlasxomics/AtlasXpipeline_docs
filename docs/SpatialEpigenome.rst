@@ -264,8 +264,7 @@ Various metadata metrics found in metadata slot can be plotted. Here, quality me
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
 
-.. 
-  
+..  
       Spatial Plots of Enriched Motifs 
       ----------------------------------------------------
 
