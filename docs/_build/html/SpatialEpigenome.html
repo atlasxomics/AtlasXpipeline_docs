@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spatial Epigenome &mdash; Introduction to ATAC Analysis with DBiT-seq 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Introduction to ATAC Analysis with DBiT-seq
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AtlasXbrowser:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/OpeningFolder.html">OpeningFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ImageConfiguration.html">ImageConfiguration</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Thresholding.html">Thresholding</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ROICharacterization.html">ROICharacterization</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/SpatialFolder.html">SpatialFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ExampleWalkthrough.html">ExampleWalkthrough</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXplore:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GenomeBrowser.html">Genome Browser</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/MotifSearch.html">Motif Search</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/LassoSelector.html">Lasso Selector</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/CellTypeLabeling.html">Cell Type Labeling</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/SavingPlots.html">Plot Saving</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXomics:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spatial Epigenome</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-visualization">Overview of Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#archr-project-creation">ArchR Project Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spatial-object-creation">Spatial Object Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-visualizations">Additional Visualizations</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Introduction to ATAC Analysis with DBiT-seq</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Spatial Epigenome</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/SpatialEpigenome.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="spatial-epigenome">
+<h1>Spatial Epigenome<a class="headerlink" href="#spatial-epigenome" title="Permalink to this heading"></a></h1>
+<section id="overview-of-visualization">
+<h2>Overview of Visualization<a class="headerlink" href="#overview-of-visualization" title="Permalink to this heading"></a></h2>
+<p>This tutorial aims to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
+prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
+this tutorial centers around the usage of both <a class="reference external" href="https://www.archrproject.com/bookdown/index.html">ArchR</a>
+and <a class="reference external" href="https://satijalab.org/seurat">Seurat</a> to create a spatially resolved ATAC object from which ATAC gene scores are mapped
+back to the tissue histology. Each step in this analysis workflow closely follows standard scATAC downstream analysis
+as outlined in ArchR’s tutorial.</p>
+<p>For this quickstart, we will be using D357, a mouse embryo dataset generated by the DBiT protocol.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<p>Load needed libraries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">ArchR</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">Seurat</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">patchwork</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">gridExtra</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">kableExtra</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">tibble</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">clusterProfiler</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">org</span><span class="o">.</span><span class="n">Mm</span><span class="o">.</span><span class="n">eg</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="nb">repr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">purrr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Before starting downstream analysis in ArchR, a few global parameters must be set:</p>
+</section>
+<section id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading"></a></h2>
+<p>Data species, number of threads, tile size, genome size, minimum TSS, minimum fragments, and set seed are all parameters that can be specified when using the ArchR R package for basic downstream spatial ATAC analysis prepared by the DBiT-seq protocol.</p>
+<p><strong>Data species</strong> refers to the type of organism being analyzed, such as mouse ‘mm10’, human ‘hg38’, rat ‘rnor6’, or a custom reference.</p>
+<p><strong>Number of threads</strong> specifies the number of parallel threads to use when running the analysis, which can improve the efficiency of the analysis by allowing it to run on multiple cores of a computer’s processor. An integer must be assigned to num_threads specifying the number of threads to use for ArchR.</p>
+<p><strong>Tile size</strong> specifies the size of the tiles that will be used to divide the genome into smaller regions for analysis. For tile size we define an integer specifying the bin size of the genome.</p>
+<p><strong>Genome size</strong> specifies the size of the genome being analyzed.</p>
+<p><strong>Minimum TSS and minimum fragments</strong> specify the minimum number of transcription start sites and fragments that must be detected in a region for it to be considered significant. min_Frags refers to the minimum number of mapped ATAC-seq fragments required per tixel when creating arrowFile(s).</p>
+<p><strong>Set seed</strong> is a parameter that can be used to specify a seed value for the random number generator used by the analysis, which can be useful for reproducing results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_species</span> <span class="o">&lt;-</span> <span class="s1">&#39;mm10&#39;</span>
+<span class="n">num_threads</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+<span class="n">tile_size</span> <span class="o">&lt;-</span> <span class="mi">5000</span>
+<span class="n">genomeSize</span> <span class="o">=</span> <span class="mf">3.0e+09</span>
+<span class="n">min_TSS</span> <span class="o">&lt;-</span> <span class="mi">0</span>
+<span class="n">min_Frags</span> <span class="o">&lt;-</span> <span class="mi">0</span>
+<span class="nb">set</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="c1">#Path to fragments.tsv.gz located in &lt;sample&gt;_cellranger_outs/</span>
+<span class="n">inputFile</span> <span class="o">&lt;-</span> <span class="s2">&quot;./test_data/D00357_cellranger_output/fragments.tsv.gz&quot;</span>
+<span class="n">project_name</span> <span class="o">&lt;-</span> <span class="s1">&#39;Control&#39;</span>
+<span class="c1"># Path to spatial folder located in &lt;sample&gt;</span>
+<span class="n">spatialFolder</span> <span class="o">&lt;-</span> <span class="s1">&#39;./test_data/Spatial/D357/spatial&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="archr-project-creation">
+<h2>ArchR Project Creation<a class="headerlink" href="#archr-project-creation" title="Permalink to this heading"></a></h2>
+<p>Once generating the needed fragments.tsv file outputted from Cellranger for a specific sample, we can now create
+an ArchR <strong>ArrowFile</strong> which will form the basis of our ATAC analysis. During the ArrowFile creation step, all of the
+necessary data and metadata for the given sample will be generated and stored on disk in HD5 format. A few parameters such as
+minTSS and minFrags, which respectively denote the lowest TSS enrichment score and lowest number of fragments can
+be passed to filter out any poor quality tixels from the dataset. For simplicity of this tutorial, all tixels are included as they are needed to map back the log-scaled fragment counts to the tissue_positions.csv file. For reference, archR also allows subsetting on projects based on tixel names. For future reference, see <a class="reference external" href="https://www.archrproject.com/reference/subsetArchRProject.html">subsetArchRProject</a>. Here, an ArrowFile for a single fragments.tsv associated with an
+arbitrary ‘Control’ sample is created:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">addArchRGenome</span><span class="p">(</span><span class="n">data_species</span><span class="p">)</span>
+<span class="n">geneAnnotation</span> <span class="o">&lt;-</span> <span class="n">getGeneAnnotation</span><span class="p">()</span>
+<span class="n">genomeAnnotation</span> <span class="o">&lt;-</span> <span class="n">getGenomeAnnotation</span><span class="p">()</span>
+<span class="n">addArchRThreads</span><span class="p">(</span><span class="n">threads</span> <span class="o">=</span> <span class="n">num_threads</span><span class="p">)</span>
+
+<span class="n">ArrowFiles</span> <span class="o">&lt;-</span> <span class="n">createArrowFiles</span><span class="p">(</span>
+   <span class="n">inputFiles</span> <span class="o">=</span> <span class="n">inputFile</span><span class="p">,</span>
+   <span class="n">sampleNames</span> <span class="o">=</span> <span class="n">project_name</span><span class="p">,</span>
+   <span class="n">geneAnnotation</span> <span class="o">=</span> <span class="n">geneAnnotation</span><span class="p">,</span>
+   <span class="n">genomeAnnotation</span> <span class="o">=</span> <span class="n">genomeAnnotation</span><span class="p">,</span>
+   <span class="n">minTSS</span> <span class="o">=</span> <span class="n">min_TSS</span><span class="p">,</span>
+   <span class="n">minFrags</span> <span class="o">=</span> <span class="n">min_Frags</span><span class="p">,</span>
+   <span class="n">maxFrags</span> <span class="o">=</span> <span class="mf">1e+07</span><span class="p">,</span>
+   <span class="n">addTileMat</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span>
+   <span class="n">addGeneScoreMat</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span>
+   <span class="n">offsetPlus</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="n">offsetMinus</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span>
+   <span class="n">TileMatParams</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tileSize</span> <span class="o">=</span> <span class="n">tile_size</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>ArchR accesses this data by associating the newly created ArrowFiles with an <strong>ArchRProject</strong>. An ArchRProject is
+a data structure stored in memory that can be easily accessed/mutated by R. Every operation on the ArchRProject affects its associated
+ArrowFile. All of the archR downstream analysis will take place on the ArchRProject. To create an ArchRProject, pass in the previously
+created ArrowFiles object to the ArchRProject function call</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proj</span> <span class="o">&lt;-</span> <span class="n">ArchRProject</span><span class="p">(</span>
+   <span class="n">ArrowFiles</span> <span class="o">=</span> <span class="n">ArrowFiles</span><span class="p">,</span>
+   <span class="n">outputDirectory</span> <span class="o">=</span> <span class="n">project_name</span><span class="p">,</span>
+   <span class="n">geneAnnotation</span> <span class="o">=</span> <span class="n">geneAnnotation</span><span class="p">,</span>
+   <span class="n">genomeAnnotation</span> <span class="o">=</span> <span class="n">genomeAnnotation</span><span class="p">,</span>
+   <span class="n">copyArrows</span> <span class="o">=</span> <span class="n">TRUE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="spatial-object-creation">
+<h2>Spatial Object Creation<a class="headerlink" href="#spatial-object-creation" title="Permalink to this heading"></a></h2>
+<p>Given sparsity of ATAC data, we compute dimensionality reduction via the IterativeLSI technique and perform clustering using the standard Seurat v3 community neighborhood detection method via <strong>addClusters(…)</strong>. Clusters are then embedded into a UMAP space purely for visualization purposes. Once clustering is computed, spatial information contained in the folder generated by AtlasXBrowser is integrated. To
+do so, we use Seurat’s Read10X_image function to create a 10X Visium-like object called <strong>image</strong> containing all the spatial folder information. Here, off-tissue tixels are filtered out in both the image object and in the ArchRProject, creating a new project <strong>proj_in_tissue</strong>. The gene
+score matrix containing all gene accessibility scores and metadata are then extracted from proj_in_tissue and passed as parameters to Seurat’s <strong>CreateSeuratObject</strong> function call. The image object is then added to the “slice1” slot of the newly created Seurat object. Once the gene-score matrix and imaging data are succesfully integrated, we now have a spatially-resolved ATAC object containing all of the information and metadata computed in ArchR.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>############### Prepare meta.data
+meta.data &lt;- as.data.frame(getCellColData(ArchRProj = proj))
+meta.data[&#39;cellID_archr&#39;] &lt;- row.names(meta.data)
+new_row_names &lt;- row.names(meta.data)
+new_row_names &lt;- unlist(lapply(new_row_names, function(x) gsub(&quot;.*#&quot;,&quot;&quot;, x)))
+new_row_names &lt;- unlist(lapply(new_row_names, function(x) gsub(&quot;-.*&quot;,&quot;&quot;, x)))
+row.names(meta.data) &lt;- new_row_names
+
+############### Filtering off-tissue tixels using image data
+image = Read10X_Image(image.dir = spatialFolder, filter.matrix = TRUE)
+sequenced_tixels &lt;- row.names(meta.data)
+image &lt;- image[sequenced_tixels, ]
+meta.data.spatial &lt;- meta.data[row.names(image@coordinates), ]
+proj_in_tissue &lt;- proj[meta.data.spatial$cellID_archr, ]
+
+############### Dimension reduction, clustering, and add UMAP embedding
+proj_in_tissue &lt;- addIterativeLSI(
+   ArchRProj = proj_in_tissue,
+   useMatrix = &quot;TileMatrix&quot;,
+   name = &quot;IterativeLSI&quot;,
+   iterations = 2,
+   clusterParams = list(
+   resolution = c(0.2),
+   sampleCells = 10000,
+   n.start = 10
+   ),
+   varFeatures = 25000,
+   dimsToUse = 1:30,
+   force = TRUE
+)
+
+proj_in_tissue &lt;- addClusters(
+   input = proj_in_tissue,
+   reducedDims = &quot;IterativeLSI&quot;,
+   method = &quot;Seurat&quot;,
+   name = &quot;Clusters&quot;,
+   resolution = 0.5,
+   force = TRUE
+)
+
+proj_in_tissue &lt;- addUMAP(
+   ArchRProj = proj_in_tissue,
+   reducedDims = &quot;IterativeLSI&quot;,
+   name = &quot;UMAP&quot;,
+   nNeighbors = 30,
+   minDist = 0.5,
+   metric = &quot;cosine&quot;,
+   force = TRUE
+)
+
+############## Creating Seurat object
+gene_score &lt;- getMatrixFromProject(proj_in_tissue)
+rownames(gene_score) &lt;- rowData(gene_score)$name
+proj_in_tissue &lt;- addImputeWeights(proj_in_tissue)
+gene_score &lt;- imputeMatrix(assay(gene_score), getImputeWeights(proj_in_tissue))
+gene_score &lt;- log(gene_score+1, base = 2)
+colnames(gene_score) &lt;- gsub(pattern = paste0(project_name, &quot;#|-1&quot;), replacement = &quot;&quot;, x= colnames(gene_score))
+
+object &lt;- CreateSeuratObject(counts = gene_score, assay = &quot;Spatial&quot;, meta.data = meta.data)
+
+image &lt;- image[Cells(x = object)]
+DefaultAssay(object = image) &lt;- &quot;Spatial&quot;
+object[[&quot;slice1&quot;]] &lt;- image
+spatial_in_tissue.obj &lt;- object
+
+spatial_in_tissue.obj$orig.ident = as.factor(project_name)
+Idents(spatial_in_tissue.obj) = &#39;orig.ident&#39;
+spatial_in_tissue.obj = AddMetaData(spatial_in_tissue.obj, spatial_in_tissue.obj@images$slice1@coordinates)
+
+############### Add log2 nFrags back to tissue_positions_list
+tissue_positions_list = read.csv(file = file.path(spatialFolder,&#39;tissue_positions_list.csv&#39;), header = 0)
+meta_tixels &lt;- rownames(meta.data)
+n_frags &lt;- meta.data$nFrags
+
+n_frags_df &lt;- data.frame(nFrags_log = log(x = n_frags + 1, base = 10))
+rownames(n_frags_df) &lt;- meta_tixels
+tissue_positions_list_m &lt;- merge(tissue_positions_list, n_frags_df, by.x = &#39;V1&#39;, by.y = &#39;row.names&#39;)
+tissue_positions_list_m$nFrags_log_dupe &lt;- tissue_positions_list_m$nFrags_log
+write.table(tissue_positions_list_m, file.path(spatialFolder, &quot;tissue_positions_list_log_nFrags.csv&quot;), col.names = FALSE, row.names = FALSE, sep = &#39;,&#39;)
+</pre></div>
+</div>
+<p>Once the spatial objects are generated, various metadata and gene score information can be plotted
+back to spatial images using standard Seurat functions such as SpatialDimPlot. Optional aesthetic parameters such as <strong>pt_size_factor</strong> and <strong>cols</strong> are passed to control size of the tixel and color palette displayed in the graphic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>############## Define aesthetic parameters
+n_clusters &lt;- length(unique(proj_in_tissue$Clusters))
+palette  = c(&quot;navyblue&quot;, &quot;turquoise2&quot;, &quot;tomato&quot;, &quot;tan2&quot;, &quot;pink&quot;, &quot;mediumpurple1&quot;, &quot;steelblue&quot;, &quot;springgreen2&quot;,&quot;violetred&quot;, &quot;orange&quot;, &quot;violetred&quot;, &quot;slateblue1&quot;,  &quot;violet&quot;, &quot;purple&quot;,
+             &quot;purple3&quot;,&quot;blue2&quot;,  &quot;pink&quot;, &quot;coral2&quot;, &quot;palevioletred&quot;, &quot;red2&quot;, &quot;yellowgreen&quot;, &quot;palegreen4&quot;,
+              &quot;wheat2&quot;, &quot;tan&quot;, &quot;tan3&quot;, &quot;brown&quot;,
+              &quot;grey70&quot;, &quot;grey50&quot;, &quot;grey30&quot;)
+cols &lt;- palette[seq_len(n_clusters)]
+names(cols) &lt;- names(proj_in_tissue@sampleMetadata)
+names(cols) &lt;- paste0(&#39;C&#39;, seq_len(n_clusters))
+cols_hex &lt;- lapply(X = cols, FUN = function(x){
+    do.call(rgb, as.list(col2rgb(x)/255))
+})
+cols &lt;- unlist(cols_hex)
+pt_size_factor &lt;- 1
+
+############## Plotting UMAP/cluster identities to spatial histology
+spatial_in_tissue.obj@meta.data$Clusters = proj_in_tissue$Clusters
+plot_spatial = Seurat::SpatialDimPlot(
+    spatial_in_tissue.obj,
+    label = FALSE, label.size = 3,
+    group.by = &quot;Clusters&quot;,
+    pt.size.factor = pt_size_factor, cols = cols, stroke = 0) +
+    theme(
+       plot.title = element_blank(),
+       legend.position = &quot;right&quot;,
+       text=element_text(size=21)) +
+       ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=21))
+
+plot_spatial$layers[[1]]$aes_params &lt;- c(plot_spatial$layers[[1]]$aes_params, shape=22)
+
+plot_umap = plotEmbedding(
+  ArchRProj = proj_in_tissue,
+  pal = cols,
+  colorBy = &quot;cellColData&quot;,
+  name = &quot;Clusters&quot;,
+  embedding = &quot;UMAP&quot;,
+  size = 2) +
+  theme(
+    plot.title = element_blank(),
+    legend.position = &quot;none&quot;,
+    text=element_text(size=21))
+
+cluster_plots &lt;- plot_spatial + plot_umap
+cluster_plots
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cluster_plots.png"><img alt="Plots displaying umap embeddings and cluster identies on histology" src="_images/cluster_plots.png" style="width: 800px;" /></a>
+</section>
+<section id="additional-visualizations">
+<h2>Additional Visualizations<a class="headerlink" href="#additional-visualizations" title="Permalink to this heading"></a></h2>
+<p>Various metadata metrics found in metadata slot can be plotted. Here, quality metrics like log-scaled fragment counts, nucleosome ratios, and TSS enrichment scores are plotted against each tixel’s spatial coordinate. Optional graphical aesthetics are applied to the figures:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>############## Plotting quality control metrics to spatial histology
+spatial_in_tissue.obj@meta.data$log10_nFrags &lt;- log10(spatial_in_tissue.obj@meta.data$nFrags)
+plot_metadata = SpatialFeaturePlot(
+  object = spatial_in_tissue.obj,
+  features = c(&quot;log10_nFrags&quot;, &quot;NucleosomeRatio&quot;, &quot;TSSEnrichment&quot;),
+  alpha = c(0.2, 1), pt.size.factor = pt_size_factor) +
+  theme(plot.title = element_text(hjust = 0.5), text=element_text(size=10))
+plot_metadata$layers[[1]]$aes_params &lt;-c(plot_metadata$layers[[1]]$aes_params, shape=22)
+
+plot_metadata
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/metadata_hist.png"><img alt="Plots displaying quality control metrics on histology" src="_images/metadata_hist.png" style="width: 650px;" /></a>
+<p>Standard ArchR plotting can be used with the computed <strong>proj_in_tissue</strong> project. For more information on
+function methodology and documentation, please see ArchR’s <a class="reference external" href="https://www.archrproject.com/bookdown/index.html">tutorial</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AtlasXomics.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

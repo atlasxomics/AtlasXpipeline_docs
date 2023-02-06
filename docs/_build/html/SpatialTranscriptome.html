@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spatial Transcriptome &mdash; Introduction to ATAC Analysis with DBiT-seq 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Introduction to ATAC Analysis with DBiT-seq
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AtlasXbrowser:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/OpeningFolder.html">OpeningFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ImageConfiguration.html">ImageConfiguration</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Thresholding.html">Thresholding</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ROICharacterization.html">ROICharacterization</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/SpatialFolder.html">SpatialFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ExampleWalkthrough.html">ExampleWalkthrough</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXplore:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GenomeBrowser.html">Genome Browser</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/MotifSearch.html">Motif Search</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/LassoSelector.html">Lasso Selector</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/CellTypeLabeling.html">Cell Type Labeling</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/SavingPlots.html">Plot Saving</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXomics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpatialEpigenome.html">Spatial Epigenome</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Introduction to ATAC Analysis with DBiT-seq</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Spatial Transcriptome</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/SpatialTranscriptome.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="spatial-transcriptome">
+<h1>Spatial Transcriptome<a class="headerlink" href="#spatial-transcriptome" title="Permalink to this heading"></a></h1>
+<p>This program is designed to analyse and generate an analysis report in HTML format for AtlasXomics spatial datasets.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
+<p>Install the following required packages and libraries using the install.packages() function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;Seurat&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;SeuratData&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;ggplot2&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;patchwork&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;dplyr&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;devtools&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;DropletUtils&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;kableExtra&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;magick&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;stringr&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;getopt&#39;</span><span class="p">)</span>
+<span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s1">&#39;plyr&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the BiocManager package is not already installed, install it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+  install.packages(&quot;BiocManager&quot;)
+</pre></div>
+</div>
+<p>Use the BiocManager to install the DropletUtils and org.*.eg.db packages:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BiocManager</span><span class="p">::</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;DropletUtils&quot;</span><span class="p">)</span>
+<span class="n">BiocManager</span><span class="p">::</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;org.Hs.eg.db&quot;</span><span class="p">)</span>
+<span class="n">BiocManager</span><span class="p">::</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;org.Mm.eg.db&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If the BiocManager package is not already installed, install it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!requireNamespace(&quot;BiocManager&quot;, quietly = TRUE))
+  install.packages(&quot;BiocManager&quot;)
+</pre></div>
+</div>
+<p>Use the BiocManager to install the topGO package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BiocManager</span><span class="p">::</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;topGO&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load the required libraries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">devtools</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">Seurat</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">AtlasTools</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">patchwork</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">plyr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">DropletUtils</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">kableExtra</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">cowplot</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">magick</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">topGO</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">getopt</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">purrr</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">rjson</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="n">SeuratDisk</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Define the command-line options and read in the values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">matrix</span> <span class="p">(</span><span class="n">c</span><span class="p">(</span>
+  <span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;integer&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;logical&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;folder&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;character&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;character&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;project_name&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;character&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;ref_path&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;character&quot;</span><span class="p">,</span>
+  <span class="s1">&#39;pt_size&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;double&quot;</span>
+<span class="p">),</span> <span class="n">byrow</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the getopt() function to parse the command-line options and specify the values for the necessary variables, such as the dataset folder, species, project name, reference path, and point size.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>opt = getopt(spec)
+dataset &lt;- file.path(opt$folder, &quot;Gene/raw&quot;)
+data_species &lt;- opt$species
+project_name &lt;- opt$project_name
+if (is.null(opt$pt_size)) {
+  pt_size_factor &lt;- 1
+} else {
+  pt_size_factor &lt;- opt$pt_size
+}
+ref_path &lt;- opt$ref_path
+</pre></div>
+</div>
+<p>Read the metadata JSON file and extract the relevant information, such as the assay type, number of barcodes, collaborator, disease state, number of channels, organ, run, species, and experiment type. Use the map() and replace() functions to handle NULL values and convert the metadata to a data frame.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>meta_out &lt;- fromJSON(file = paste0(dataset, &quot;/spatial/metadata.json&quot;))
+meta_rotation &lt;- meta_out$orientation$rotation
+meta_out &lt;- meta_out[c(&quot;assay&quot;, &quot;barcodes&quot;, &quot;collaborator&quot;, &quot;diseaseState&quot;, &quot;numChannels&quot;, &quot;organ&quot;, &quot;run&quot;, &quot;species&quot;, &quot;Experiment     type&quot; )]
+meta_out &lt;- map(meta_out, ~ replace(.x, is.null(.x), &quot;NA&quot;))
+meta_out &lt;- as.data.frame(meta_out)
+</pre></div>
+</div>
+</section>
+<section id="path-for-flow-images">
+<h2>Path for flow images<a class="headerlink" href="#path-for-flow-images" title="Permalink to this heading"></a></h2>
+<p>Set the path for the flow images. The fig_path variable is set to the path of the flow images, which is located in the “spatial/figure” subdirectory of the dataset directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig_path</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;spatial/figure&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check if the path for flow images exists. If it does, then iterate over the list of files to process them one by one. If the path does not exist, it creates the directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nb">dir</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fig_path</span><span class="p">)){</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">file</span> <span class="ow">in</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;flowA&quot;</span><span class="p">,</span> <span class="s2">&quot;flowB&quot;</span><span class="p">,</span> <span class="s2">&quot;postB_BSA&quot;</span><span class="p">,</span> <span class="s2">&quot;postB</span><span class="se">\\</span><span class="s2">b.&quot;</span><span class="p">,</span> <span class="s2">&quot;fix&quot;</span><span class="p">)){</span>
+    <span class="n">skip_to_next</span> <span class="o">&lt;-</span> <span class="n">FALSE</span>
+    <span class="n">tryCatch</span><span class="p">(</span>
+      <span class="c1"># code to process the images goes here</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+  <span class="nb">dir</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">fig_path</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Inside the loop, list the flowA.tif or flowA.TIF image. Filter it using the grep function with the file variable as the pattern. The file.path function is then used to combine the fig_path and the tif_file to get the full path of the image file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">index</span> <span class="o">&lt;-</span>  <span class="nb">list</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">fig_path</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;tif|TIF&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="n">grep</span><span class="p">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">file</span><span class="p">)</span>
+<span class="n">tif_file</span> <span class="o">&lt;-</span> <span class="nb">list</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">path</span> <span class="o">=</span> <span class="n">fig_path</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;tif|TIF&quot;</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Read the image using the image_read function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">&lt;-</span> <span class="n">image_read</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">fig_path</span><span class="p">,</span> <span class="n">tif_file</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If the file is not postB_BSA or postBb. and the meta_rotation value is not zero, rotate the image by 360 - meta_rotation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if((!file %in% c(&quot;postB\\b.&quot;, &quot;postB_BSA&quot;)) &amp;&amp; (meta_rotation !=0)){
+  angle &lt;- 360 - meta_rotation
+  img &lt;- image_rotate(img, angle)
+}
+</pre></div>
+</div>
+<p>Resize the image to a width of 950px and a height that is proportional to the width:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">&lt;-</span> <span class="n">image_scale</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s2">&quot;950x&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the image as a .png file using the image_write function. The gsub function is used to remove the extension from the tif_file variable, and the paste0 function is used to create the new filename for the .png file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">base_fname</span> <span class="o">&lt;-</span> <span class="n">gsub</span><span class="p">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">..*&quot;</span><span class="p">,</span> <span class="n">replacement</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tif_file</span><span class="p">)</span>
+<span class="n">image_write</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">paste0</span><span class="p">(</span><span class="n">fig_path</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">base_fname</span><span class="p">,</span> <span class="s2">&quot;-1.png&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="nb">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">quality</span> <span class="o">=</span> <span class="mi">75</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In case of any error or warning, handle them using the tryCatch function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tryCatch</span><span class="p">(</span>
+  <span class="c1"># code to process the images goes here</span>
+  <span class="n">error</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">e</span><span class="p">){</span>
+    <span class="c1"># code to handle errors goes here</span>
+  <span class="p">},</span>
+  <span class="n">warning</span><span class="o">=</span><span class="n">function</span><span class="p">(</span><span class="n">w</span><span class="p">){</span>
+    <span class="c1"># code to handle warnings goes here</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a function called Load_AtlasXomics to read the AtlasXomics spatial dataset into a Seurat object. It accepts several parameters:</p>
+<p><em>data.dir:</em> The directory containing matrix.mtx, genes.tsv, barcodes.tsv along with a subdirectory spatial containing .png tissue image, scalefactors_json.json, and tissue_positions_list.csv.</p>
+<p><em>assay:</em> The name of the assay to assign to the data within the Seurat object (default is ‘Spatial’).</p>
+<p><em>slice:</em> The name of the tissue to assign to the data within the Seurat object (default is ‘slice1’).</p>
+<p><em>filter.matrix:</em> A logical value indicating whether to filter the spatial expression matrix based on known tissue positions (default is TRUE).</p>
+<p><em>to.upper:</em> A logical value indicating whether to convert the row names of the data matrix to uppercase (default is FALSE).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Load_AtlasXomics</span> <span class="o">&lt;-</span> <span class="n">function</span><span class="p">(</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">,</span>
+  <span class="n">assay</span> <span class="o">=</span> <span class="s1">&#39;Spatial&#39;</span><span class="p">,</span>
+  <span class="nb">slice</span> <span class="o">=</span> <span class="s1">&#39;slice1&#39;</span><span class="p">,</span>
+  <span class="nb">filter</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span>
+  <span class="n">to</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">,</span>
+  <span class="o">...</span>
+<span class="p">)</span> <span class="p">{</span>
+</pre></div>
+</div>
+<p>Inside the function, check if the length of data.dir is greater than 1. If it is, print a warning message saying that the function only accepts one data.dir, and set data.dir equal to the first element in the list.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">warning</span><span class="p">(</span><span class="s2">&quot;&#39;Load_AtlasXomics&#39; accepts only one &#39;data.dir&#39;&quot;</span><span class="p">,</span> <span class="n">immediate</span><span class="o">.</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">dir</span> <span class="o">&lt;-</span> <span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Read the data using the Read10X function, passing in data.dir and … as arguments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">Read10X</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If to.upper is TRUE, convert the row names of data to uppercase using the toupper function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">to</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">rownames</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">toupper</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">rownames</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Create a Seurat object from data using the CreateSeuratObject function, setting the assay and project arguments to assay and data.dir respectively.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span> <span class="o">&lt;-</span> <span class="n">CreateSeuratObject</span><span class="p">(</span><span class="n">counts</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="n">assay</span><span class="p">,</span> <span class="n">project</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set the working directory to file.path(data.dir, ‘spatial’) and assign the list of png files to a variable called png_file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">starting_wd</span> <span class="o">=</span> <span class="n">getwd</span><span class="p">()</span>
+<span class="n">setwd</span><span class="p">(</span><span class="nb">dir</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">))</span>
+<span class="n">png_file</span> <span class="o">&lt;-</span> <span class="nb">list</span><span class="o">.</span><span class="n">files</span><span class="p">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">.png$&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set the working directory back to the starting working directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">setwd</span><span class="p">(</span><span class="n">starting_wd</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Read the image data using the Read10X_Image function, setting the image.dir argument to file.path(data.dir, ‘spatial’) and the filter.matrix argument to filter.matrix.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">&lt;-</span> <span class="n">Read10X_Image</span><span class="p">(</span>
+  <span class="n">image</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dir</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">),</span>
+  <span class="nb">filter</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="nb">filter</span><span class="o">.</span><span class="n">matrix</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Subset the image data using the Cells function and the Seurat object, and set the default assay of the image data to assay.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">&lt;-</span> <span class="n">image</span><span class="p">[</span><span class="n">Cells</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)]</span>
+<span class="n">DefaultAssay</span><span class="p">(</span><span class="nb">object</span> <span class="o">=</span> <span class="n">image</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">assay</span>
+</pre></div>
+</div>
+<p>Add the image data to the Seurat object using the [[]] operator, setting the slice to image.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span><span class="p">[[</span><span class="nb">slice</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">image</span>
+</pre></div>
+</div>
+<p>If filter.matrix is TRUE, subset the Seurat object to only include rows that are on tissue cells using the rownames function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (filter.matrix) {
+  on_tissue_cells &lt;- rownames(object@images$slice1@coordinates)
+  object &lt;- object[,on_tissue_cells]
+}
+return(object)
+</pre></div>
+</div>
+<p>Create a Seurat object called object_AXOSpatial_seurat by calling the Load_AtlasXomics function with the data.dir argument set to dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">=</span> <span class="n">Load_AtlasXomics</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a Seurat object called object_AXOSpatial_seurat_all_tixels by calling the Load_AtlasXomics function with the data.dir argument set to dataset and the filter.matrix argument set to FALSE.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat_all_tixels</span> <span class="o">=</span> <span class="n">Load_AtlasXomics</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">,</span> <span class="nb">filter</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a new metadata column called orig.ident to both object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels, setting the value to project_name as a factor.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat$orig.ident = as.factor(project_name)
+object_AXOSpatial_seurat_all_tixels$orig.ident = as.factor(project_name)
+</pre></div>
+</div>
+<p>Set the Idents of both object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels to ‘orig.ident’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idents</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;orig.ident&#39;</span>
+<span class="n">Idents</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;orig.ident&#39;</span>
+</pre></div>
+</div>
+<p>Create a new object called object_AXOSpatial_seurat_all_tixels0 that is a copy of object_AXOSpatial_seurat_all_tixels.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat_all_tixels0</span> <span class="o">&lt;-</span> <span class="n">object_AXOSpatial_seurat_all_tixels</span>
+</pre></div>
+</div>
+<p>Add new metadata columns to object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels using the PercentageFeatureSet function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span><span class="p">[[</span><span class="s2">&quot;percent.mt&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^[Mm][Tt]-&quot;</span><span class="p">)</span>
+<span class="n">object_AXOSpatial_seurat</span><span class="p">[[</span><span class="s2">&quot;percent.rb&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^[Rr][Pp][Ss]|[Rr][Pp][Ll]&quot;</span><span class="p">)</span>
+<span class="n">object_AXOSpatial_seurat</span><span class="p">[[</span><span class="s2">&quot;percent.hg&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="s2">&quot;^[Hh][Bb][^Pp]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Calculate the percentage of features in the object_AXOSpatial_seurat_all_tixels object that match the pattern “^[Mm][Tt]-”. Assign the result to a new slot called “percent.mt” in the object_AXOSpatial_seurat_all_tixels object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">[[</span><span class="s2">&quot;percent.mt&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^[Mm][Tt]-&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Calculate the percentage of features in the object_AXOSpatial_seurat_all_tixels object that match the pattern “^[Rr][Pp][Ss]|[Rr][Pp][Ll]”. Assign the result to a new slot called “percent.rb” in the object_AXOSpatial_seurat_all_tixels object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">[[</span><span class="s2">&quot;percent.rb&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span>      <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^[Rr][Pp][Ss]|[Rr][Pp][Ll]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Calculate the percentage of features in the object_AXOSpatial_seurat_all_tixels object that match the pattern “^[Hh][Bb][^Pp]”. Assign the result to a new slot called “percent.hg” in the object_AXOSpatial_seurat_all_tixels object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">[[</span><span class="s2">&quot;percent.hg&quot;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">PercentageFeatureSet</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">,</span> <span class="s2">&quot;^[Hh][Bb][^Pp]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add metadata from the slice1 slot of the images slot of the object_AXOSpatial_seurat_all_tixels object to the object_AXOSpatial_seurat_all_tixels object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat_all_tixels = AddMetaData(object_AXOSpatial_seurat_all_tixels,  object_AXOSpatial_seurat_all_tixels@images$slice1@coordinates)
+</pre></div>
+</div>
+<p>Add metadata from the slice1 slot of the images slot of the object_AXOSpatial_seurat object to the object_AXOSpatial_seurat object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat = AddMetaData(object_AXOSpatial_seurat, object_AXOSpatial_seurat@images$slice1@coordinates)
+</pre></div>
+</div>
+<p>Create a file name based on the project_name variable and the current date and time. Save the object_AXOSpatial_seurat_all_tixels object to a file with this file name and the extension rds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obj_name</span> <span class="o">=</span> <span class="n">paste0</span><span class="p">(</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">..*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">),</span> <span class="nb">format</span><span class="p">(</span><span class="n">Sys</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span><span class="s1">&#39;_%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S&#39;</span><span class="p">))</span>
+<span class="n">saveRDS</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">,</span> <span class="n">paste0</span><span class="p">(</span><span class="n">obj_name</span><span class="p">,</span> <span class="s2">&quot;_unfiltered_all_tixel.rds&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Define a function qc_stats_df that takes in two arguments: seurat_object and row_name.
+Inside the function, create a data frame df with columns: Num_Tixels, UMI_Average, UMI_std, UMI_min, UMI_max, Genes_Average, Genes_std, Genes_min, and Genes_max.
+For each column, calculate the appropriate statistic (e.g. sum, mean, standard deviation, minimum, maximum) from the seurat_object and assign it to the corresponding column in df.
+Set the row.names of df to row_name.
+Transpose df using the t() function and return the result.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>qc_stats_df &lt;- function(seurat_object, row.name){
+  df &lt;- data.frame(
+    Num_Tixels = sum(seurat_object@images$slice1@coordinates$tissue),
+    UMI_Average = mean(seurat_object@meta.data$nCount_Spatial),
+    UMI_std = sd(seurat_object@meta.data$nCount_Spatial),
+    UMI_min = min(seurat_object@meta.data$nCount_Spatial),
+    UMI_max = max(seurat_object@meta.data$nCount_Spatial),
+    Genes_Average = mean(seurat_object@meta.data$nFeature_Spatial),
+    Genes_std = sd(seurat_object@meta.data$nFeature_Spatial),
+    Genes_min = min(seurat_object@meta.data$nFeature_Spatial),
+    Genes_max = max(seurat_object@meta.data$nFeature_Spatial),
+    row.names = row.name
+  ) %&gt;% t()
+  return(df)
+}
+</pre></div>
+</div>
+<p>Compute the summary statistics for the object_AXOSpatial_seurat object and assign the resulting data frame to on_tiss_before_filter.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">on_tiss_before_filter</span> <span class="o">&lt;-</span> <span class="n">qc_stats_df</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Before Filtering&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Extract the meta.data from object_AXOSpatial_seurat and add 1 to the col and row columns. Assign the resulting data frame to meta.data_plots..:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">meta</span><span class="o">.</span><span class="n">data_plots</span> <span class="o">=</span> <span class="n">object_AXOSpatial_seurat</span><span class="nd">@meta</span><span class="o">.</span><span class="n">data</span>
+<span class="n">meta</span><span class="o">.</span><span class="n">data_plots</span><span class="p">[,</span><span class="n">c</span><span class="p">(</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">data_plots</span><span class="p">[,</span><span class="n">c</span><span class="p">(</span><span class="s1">&#39;col&#39;</span><span class="p">,</span> <span class="s1">&#39;row&#39;</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Using the ggplot2 package, create a bar plot of UMI counts by column using meta.data_plots. Label the y-axis as “#UMIs / row” and the x-axis as “Row (project_name)”. Store the plot in a variable umi_row.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">umi_row</span> <span class="o">&lt;-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">data_plots</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">nCount_Spatial</span><span class="p">))</span> <span class="o">+</span> <span class="n">geom_bar</span><span class="p">(</span><span class="n">stat</span><span class="o">=</span><span class="s2">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s1">&#39;#UMIs / row&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s1">&#39;Row (&#39;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">21</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Create a bar plot of the nCount_Spatial values by row using ggplot2. Assign the resulting plot to umi_column.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">umi_column</span> <span class="o">&lt;-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">data_plots</span><span class="p">,</span> <span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">row</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">nCount_Spatial</span><span class="p">))</span> <span class="o">+</span>
+  <span class="n">geom_bar</span><span class="p">(</span><span class="n">stat</span><span class="o">=</span><span class="s2">&quot;identity&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s1">&#39;#UMIs / column&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s1">&#39;Column (&#39;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">21</span><span class="p">))</span>
+
+<span class="n">umi_QC</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">umi_row</span><span class="p">,</span> <span class="n">umi_column</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Find the 5 rows and 5 columns with the lowest UMI counts.</p>
+<p>Aggregate the meta.data_plots$nCount_Spatial column by the meta.data_plots$row column and sum the values.
+Sort the resulting data frame by the aggregated values in ascending order.
+Select the first 5 rows of the sorted data frame and store it in lowest_col_UMI.
+Add a new column called UMI count to lowest_col_UMI with the aggregated values.
+Remove the original aggregated values column from lowest_col_UMI.
+Remove row names from lowest_col_UMI.
+Aggregate the meta.data_plots$nCount_Spatial column by the meta.data_plots$col column and sum the values.
+Sort the resulting data frame by the aggregated values in ascending order.
+Select the first 5 rows of the sorted data frame and store it in lowest_row_UMI.
+Add a new column called UMI count to lowest_row_UMI with the aggregated values.
+Remove the original aggregated values column from lowest_row_UMI.
+Remove row names from lowest_row_UMI.
+Write lowest_col_UMI to a CSV file at the file path dataset/spatial/lowest_col_UMI.csv.
+Write lowest_row_UMI to a CSV file at the file path dataset/spatial/lowest_row_UMI.csv.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>aggregate_col &lt;- aggregate(x = meta.data_plots$nCount_Spatial, by = list(Col = meta.data_plots$row), FUN=sum)
+aggregate_col &lt;- aggregate_col[order(aggregate_col$x),]
+lowest_col_UMI &lt;- aggregate_col[1:5,]
+lowest_col_UMI$`UMI count` &lt;- lowest_col_UMI$x
+lowest_col_UMI$x &lt;- NULL
+rownames(lowest_col_UMI) &lt;- NULL
+aggregate_row &lt;- aggregate(x = meta.data_plots$nCount_Spatial, by = list(Row = meta.data_plots$col), FUN=sum)
+aggregate_row &lt;- aggregate_row[order(aggregate_row$x),]
+lowest_row_UMI &lt;- aggregate_row[1:5,]
+lowest_row_UMI$`UMI count` &lt;- lowest_row_UMI$x
+lowest_row_UMI$x &lt;- NULL
+rownames(lowest_row_UMI) &lt;- NULL
+write.csv(x=lowest_col_UMI, file=file.path(dataset, &#39;spatial&#39;, &#39;lowest_col_UMI.csv&#39;))
+write.csv(x=lowest_row_UMI, file=file.path(dataset, &#39;spatial&#39;, &#39;lowest_row_UMI.csv&#39;))
+</pre></div>
+</div>
+<p>Filter object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels to only include rows where nFeature_Spatial is greater than 50 and percent.mt is less than 30.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">subset</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="n">nFeature_Spatial</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="o">&amp;</span> <span class="n">percent</span><span class="o">.</span><span class="n">mt</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels:</p>
+<p>Convert the <a class="reference external" href="mailto:Spatial&#37;&#52;&#48;counts">Spatial<span>&#64;</span>counts</a> assay data to a data frame.
+Select only the columns in the data frame that have at least one non-zero value.
+Filter the original object_AXOSpatial_seurat or object_AXOSpatial_seurat_all_tixels object to only include the cells that are present in the filtered data frame.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat_all_tixels &lt;- subset(object_AXOSpatial_seurat_all_tixels, subset = nFeature_Spatial &gt; 50 &amp; percent.mt &lt; 30)
+
+mat = as.data.frame(object_AXOSpatial_seurat@assays$Spatial@counts)
+
+mat2 = mat[, colSums(mat != 0) &gt; 0]
+
+object_AXOSpatial_seurat = subset(object_AXOSpatial_seurat, cells = colnames(mat2))
+
+mat = as.data.frame(object_AXOSpatial_seurat_all_tixels@assays$Spatial@counts)
+
+mat2 = mat[, colSums(mat != 0) &gt; 0]
+
+object_AXOSpatial_seurat_all_tixels = subset(object_AXOSpatial_seurat_all_tixels, cells = colnames(mat2))
+</pre></div>
+</div>
+<p>Iterate over the elements in the list c(“nFeature_Spatial”, “nCount_Spatial”, “percent.mt”, “percent.rb”, “percent.hg”). For each element i, do the following:</p>
+<p>Create a plot using the VlnPlot function, with object_AXOSpatial_seurat as the input and i as the features argument.
+Add a box plot to the plot using the geom_boxplot function.
+Remove the legend from the plot using the NoLegend function.
+Assign the resulting plot to the element in a with the name i.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">c</span><span class="p">()</span>
+<span class="c1">#  VlnPlot(object_AXOSpatial_seurat, features = c(&quot;nFeature_Spatial&quot;, &quot;nCount_Spatial&quot;, &quot;percent.mt&quot;, &quot;percent.rb&quot;, &quot;percent.hg&quot;), pt.size = 0.0, combine = FALSE) + NoLegend()</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">c</span><span class="p">(</span><span class="s2">&quot;nFeature_Spatial&quot;</span><span class="p">,</span> <span class="s2">&quot;nCount_Spatial&quot;</span><span class="p">,</span> <span class="s2">&quot;percent.mt&quot;</span><span class="p">,</span> <span class="s2">&quot;percent.rb&quot;</span><span class="p">,</span> <span class="s2">&quot;percent.hg&quot;</span><span class="p">)){</span>
+  <span class="n">a</span><span class="p">[[</span><span class="n">i</span><span class="p">]]</span> <span class="o">&lt;-</span><span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">i</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Combine the plots in a into a single plot using the CombinePlots function, with a layout of 5 columns.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">CombinePlots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a scatter plot of nCount_Spatial vs nFeature_Spatial for object_AXOSpatial_seurat using the FeatureScatter function.</p>
+<p>Set the point size to 1 and the color to black.
+Remove the legend from the plot using the NoLegend function.
+Set the text size to 21 using the theme function.
+Store the resulting plot in a variable b.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">FeatureScatter</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="s2">&quot;nCount_Spatial&quot;</span><span class="p">,</span> <span class="s2">&quot;nFeature_Spatial&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span><span class="n">theme</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">21</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Create an empty plot using the ggdraw function and store it in a variable qcPlot. Add the plots a and b to the qcPlot plot in the specified positions and sizes using the draw_plot function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">qcPlot</span> <span class="o">=</span> <span class="n">ggdraw</span><span class="p">()</span> <span class="o">+</span>
+  <span class="n">draw_plot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+  <span class="n">draw_plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set the scientific notation threshold to 999 using the options function. Calculate statistics for object_AXOSpatial_seurat using the qc_stats_df function and store the resulting data frame in a variable on_tiss_after_filter. Bind the data frame on_tiss_before_filter and on_tiss_after_filter together horizontally and store the result in a variable on_tiss_stats.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">options</span><span class="p">(</span><span class="n">scipen</span> <span class="o">=</span> <span class="mi">999</span><span class="p">)</span>
+<span class="n">on_tiss_after_filter</span> <span class="o">&lt;-</span> <span class="n">qc_stats_df</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;After Filtering&quot;</span><span class="p">)</span>
+<span class="n">on_tiss_stats</span> <span class="o">&lt;-</span> <span class="n">cbind</span><span class="p">(</span><span class="n">on_tiss_before_filter</span> <span class="p">,</span> <span class="n">on_tiss_after_filter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set the Idents of object_AXOSpatial_seurat_all_tixels to ‘tissue’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idents</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;tissue&#39;</span>
+</pre></div>
+</div>
+<p>Check if the value 0 is not present in the Idents of object_AXOSpatial_seurat_all_tixels. If it is not present, do the following:
+Set the Idents of object_AXOSpatial_seurat_all_tixels to ‘orig.ident’.
+Create a data frame with 0 values for UMI_Average_NT, UMI_std_NT, UMI_min_NT, UMI_max_NT, and percent_umi_off_tissue and a row name of ‘After Filtering’.
+Transpose the data frame and store it in a variable off_tiss_filtered_df.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>f(!0 %in% Idents(object_AXOSpatial_seurat_all_tixels)){
+  Idents(object_AXOSpatial_seurat_all_tixels) = &#39;orig.ident&#39;
+  off_tiss_filtered_df &lt;- data.frame(
+    UMI_Average_NT = 0,
+    UMI_std_NT = 0,
+    UMI_min_NT = 0,
+    UMI_max_NT = 0,
+    percent_umi_off_tissue = 0,
+    row.names = &#39;After Filtering&#39;
+  ) %&gt;% t()
+} else {
+</pre></div>
+</div>
+<p>If the value 0 is present in the Idents of object_AXOSpatial_seurat_all_tixels, do the following:
+Filter object_AXOSpatial_seurat_all_tixels to only include cells with an ident of 0 and store the result in object_AXOSpatial_seurat_Non_Tissue.
+Set the Idents of object_AXOSpatial_seurat_all_tixels to ‘orig.ident’.
+Calculate the mean, standard deviation, minimum, and maximum of the nCount_Spatial values for object_AXOSpatial_seurat_Non_Tissue and the percentage of UMI counts that are from off-tissue cells.
+Create a data frame with these calculated values and a row name of ‘After Filtering’.
+Transpose the data frame and store it in a variable off_tiss_filtered_df.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat_Non_Tissue = subset(object_AXOSpatial_seurat_all_tixels, ident = 0)
+  Idents(object_AXOSpatial_seurat_all_tixels) = &#39;orig.ident&#39;
+  off_tiss_filtered_df &lt;- data.frame(
+    UMI_Average_NT = mean(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+    UMI_std_NT = sd(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+    UMI_min_NT = min(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+    UMI_max_NT = max(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial),
+    percent_umi_off_tissue = sum(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial)/(sum(object_AXOSpatial_seurat_Non_Tissue@meta.data$nCount_Spatial)+sum(object_AXOSpatial_seurat@meta.data$nCount_Spatial)),
+    row.names = &#39;After Filtering&#39;
+  ) %&gt;% t()
+}
+</pre></div>
+</div>
+<p>Read a CSV file at the file path dataset/../Summary.csv and store the result in a data frame Sout.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sout</span> <span class="o">&lt;-</span> <span class="n">read</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;../Summary.csv&quot;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a data frame with the following columns and values:</p>
+<p>run: project_name
+Num_tixels: the rounded value of on_tiss_after_filter[‘Num_Tixels’]
+UMI_perc_off_tixel: the rounded value of off_tiss_filtered_df[‘percent_umi_off_tissue’] multiplied by 100
+Gene_per_tixel: the rounded value of on_tiss_after_filter[‘Genes_Average’]
+UMI_per_tixel: the rounded value of on_tiss_after_filter[‘UMI_Average’]
+Number_of_reads: the value in the second column of Sout</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>json_data_frame &lt;- data.frame(run=project_name,
+                              Num_tixels=round(on_tiss_after_filter[&#39;Num_Tixels&#39;], 2),
+                              UMI_perc_off_tixel=round(off_tiss_filtered_df[&#39;percent_umi_off_tissue&#39;], 2)*100,
+                              Gene_per_tixel=round(on_tiss_after_filter[&#39;Genes_Average&#39;], 2),
+                              UMI_per_tixel=round(on_tiss_after_filter[&#39;UMI_Average&#39;], 2),
+                              Number_of_reads=Sout$V2[1])
+</pre></div>
+</div>
+<p>Convert the data frame to a JSON object using the toJSON function and set the indentation level to 4. Write the JSON object to a file at the file path dataset/spatial/stats.json.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jsonData</span> <span class="o">&lt;-</span> <span class="n">toJSON</span><span class="p">(</span><span class="n">json_data_frame</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">write</span><span class="p">(</span><span class="n">jsonData</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">,</span> <span class="s1">&#39;stats.json&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="report">
+<h2>Report<a class="headerlink" href="#report" title="Permalink to this heading"></a></h2>
+<p>Calculate the number of valid reads by multiplying the value in the second column of Sout by the value in the third column of Sout.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>n_valid_reads &lt;- Sout$V2[1] * Sout$V2[2]
+</pre></div>
+</div>
+<p>Add a column called log_10_nUMI to object_AXOSpatial_seurat and object_AXOSpatial_seurat_all_tixels by taking the log base 10 of the nCount_Spatial values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>object_AXOSpatial_seurat$log_10_nUMI = log10(object_AXOSpatial_seurat@meta.data$nCount_Spatial)
+object_AXOSpatial_seurat_all_tixels$log_10_nUMI = log10(object_AXOSpatial_seurat_all_tixels@meta.data$nCount_Spatial)
+</pre></div>
+</div>
+<p>Create two plots of spatial data:</p>
+<p><em>plot_ALL:</em> a plot of all tixels in object_AXOSpatial_seurat_all_tixels with the log_10_nUMI values as the color, using the SpatialFeaturePlot function. The plot should have a title of “All Tixels (project_name)” and the legend position should be set to “right”.</p>
+<p><em>plot_Tissue:</em> a plot of only the tixels on tissue in object_AXOSpatial_seurat with the log_10_nUMI values as the color, using the SpatialFeaturePlot function. The plot should have a title of “On Tissue Tixels (project_name)” and the legend position should be set to “right”.</p>
+<p>Combine the two plots plot_ALL and plot_Tissue into a single plot using the wrap_plots function and store the result in a variable before_after_umiPlot.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot_ALL</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat_all_tixels</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;log_10_nUMI&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggtitle</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">&quot;All Tixels (&quot;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">labs</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;log10_nUMI&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">theme</span><span class="p">(</span><span class="n">plot</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">element_text</span><span class="p">(</span><span class="n">hjust</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="n">plot_Tissue</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;log_10_nUMI&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggtitle</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">&quot;On Tissue Tixels (&quot;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="n">labs</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;log10_nUMI&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">theme</span><span class="p">(</span><span class="n">plot</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">element_text</span><span class="p">(</span><span class="n">hjust</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="n">element_text</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="n">before_after_umiPlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot_ALL</span><span class="p">,</span> <span class="n">plot_Tissue</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create two plots:</p>
+<p>plot1: a boxplot of the log_10_nUMI values for object_AXOSpatial_seurat, using the VlnPlot function.
+plot2: a plot of the spatial data for object_AXOSpatial_seurat with the log_10_nUMI values as the color, using the SpatialFeaturePlot function.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">plot1</span> <span class="o">&lt;-</span> <span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;log_10_nUMI&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;#UMIs / pixel&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">labs</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;log10_nUMI&#39;</span><span class="p">)</span>
+<span class="n">plot2</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;log_10_nUMI&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">labs</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;log10_nUMI&#39;</span><span class="p">)</span>
+<span class="n">plot2</span>
+
+<span class="n">umiPlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot1</span><span class="p">,</span> <span class="n">plot2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create plots that displays the number of genes per pixel for the object_AXOSpatial_seurat object. Plot1.5 is a violin plot showing the distribution of the number of genes per pixel. This plot is created using the VlnPlot() function from the seurat package and the geom_boxplot() function from the ggplot2 package. The VlnPlot() function plots the distribution of a feature for a given seurat object, and the geom_boxplot() function adds a boxplot to the plot created by VlnPlot().</p>
+<p>plot2.5 is a spatial feature plot showing the number of genes per pixel across all pixels. This plot is created using the SpatialFeaturePlot() function from the seurat package. This function plots the distribution of a feature for a given seurat object on a 2D grid, with each grid cell corresponding to a pixel.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot1</span><span class="mf">.5</span> <span class="o">&lt;-</span> <span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;nFeature_Spatial&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>  <span class="o">+</span> <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;#Genes / pixel&quot;</span><span class="p">)</span>
+<span class="n">plot2</span><span class="mf">.5</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;nFeature_Spatial&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+
+<span class="n">genePlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot1</span><span class="mf">.5</span><span class="p">,</span> <span class="n">plot2</span><span class="mf">.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create plots that displays the percentage of mitochondrial and ribosomal genes per pixel for the object_AXOSpatial_seurat object. plot3, a boxplot, shows the distribution of the percentage of mitochondria per pixel. plot4, a scatterplot, shows the percentage of mitochondria per pixel for each pixel. These plots are created using the same process as the gene plot.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot3</span> <span class="o">&lt;-</span> <span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.mt&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>  <span class="o">+</span> <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;mt% / pixel&quot;</span><span class="p">)</span>
+<span class="n">plot4</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.mt&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">mtPlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot3</span><span class="p">,</span> <span class="n">plot4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>plot5, a boxplot, shows the distribution of the percentage of ribosomal genes per pixel. This plot is created using the same process above. plot6, a scatterplot, shows the percentage of ribosomal genes per pixel for each pixel.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot5</span> <span class="o">&lt;-</span> <span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.rb&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>  <span class="o">+</span> <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span> <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;rb% / pixel&quot;</span><span class="p">)</span>
+<span class="n">plot6</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.rb&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span> <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">rbPlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot5</span><span class="p">,</span> <span class="n">plot6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create Plot 7 by creating a violin plot of the percent.hg feature using the VlnPlot function and set the pt.size parameter to 0. Use the geom_boxplot function to add a boxplot to the plot, with a width of 0.1, a black outline, and a white fill. Use the NoLegend function to remove the legend and the xlab and ylab functions to label the x-axis and y-axis, respectively.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot7</span> <span class="o">&lt;-</span> <span class="n">VlnPlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.hg&quot;</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>  <span class="o">+</span>
+         <span class="n">geom_boxplot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">outlier</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">NA</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">NoLegend</span><span class="p">()</span> <span class="o">+</span> <span class="n">xlab</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">ylab</span><span class="p">(</span><span class="s2">&quot;hg% / pixel&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a spatial feature plot of the percent.hg feature using the SpatialFeaturePlot function and set the alpha parameter to a range of values and the pt.size.factor parameter to the pt_size_factor variable. Use the ggplot2::theme function to set the legend position to “right”.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot8</span> <span class="o">&lt;-</span> <span class="n">SpatialFeaturePlot</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;percent.hg&quot;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">pt</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">pt_size_factor</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">ggplot2</span><span class="p">::</span><span class="n">theme</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the wrap_plots function to combine the violin plot and spatial feature plot into a single plot called hgPlot.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hgPlot</span> <span class="o">=</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">plot7</span><span class="p">,</span> <span class="n">plot8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the GetAssayData function to get the assay data for the Spatial assay and store it in the counts variable.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">&lt;-</span> <span class="n">GetAssayData</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="s2">&quot;Spatial&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the grep function to find the rows in counts that match the pattern “^[Mm][Tt]-” and store their indices in the mt.index variable.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mt</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;-</span> <span class="n">grep</span><span class="p">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^[Mm][Tt]-&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">rownames</span><span class="p">(</span><span class="n">counts</span><span class="p">),</span> <span class="n">value</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Remove the rows corresponding to the mt.index from counts and update the object_AXOSpatial_seurat object with the updated counts matrix using the subset function.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">&lt;-</span> <span class="n">counts</span><span class="p">[</span><span class="o">-</span><span class="n">mt</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">subset</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">features</span> <span class="o">=</span> <span class="n">rownames</span><span class="p">(</span><span class="n">counts</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Set the Idents of the object_AXOSpatial_seurat object to ‘tissue’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Idents</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">)</span> <span class="o">=</span> <span class="s1">&#39;tissue&#39;</span>
+</pre></div>
+</div>
+<p>Subset the object to only include cells with the identifier 1</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">=</span> <span class="n">subset</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">ident</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Perform single-cell transformation (SCT) on the assay data, using verbose output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">SCTransform</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="s2">&quot;Spatial&quot;</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run principal component analysis (PCA) on the SCT data, using verbose output</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">RunPCA</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="s2">&quot;SCT&quot;</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Find nearest neighbors of cells, using the PCA reduction:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">FindNeighbors</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">reduction</span> <span class="o">=</span> <span class="s2">&quot;pca&quot;</span><span class="p">,</span> <span class="n">dims</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Find clusters of cells, using a resolution of 0.4 and verbose output, with a random seed of 101:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">FindClusters</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">resolution</span> <span class="o">=</span> <span class="mf">.4</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">101</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run UMAP on the PCA reduction</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">RunUMAP</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">reduction</span> <span class="o">=</span> <span class="s2">&quot;pca&quot;</span><span class="p">,</span> <span class="n">dims</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="n">seed</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="mi">101</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a data frame of statistics for each cluster
+First, extract the metadata from the object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">object_AXOSpatial_seurat</span><span class="nd">@meta</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Calculate the total number of UMIs and genes for each cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>per_cluster_stats &lt;- aggregate(list(nUMI = data$nCount_SCT, nGene = data$nFeature_SCT), by = list(Cluster = data$SCT_snn_res.0.4), FUN=sum)
+</pre></div>
+</div>
+<p>Calculate the number of cells (tixels) in each cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cells_per_cluster &lt;- as.data.frame(table(data$SCT_snn_res.0.4))
+colnames(cells_per_cluster) &lt;- c(&#39;Cluster&#39;, &#39;nTixels&#39;)
+</pre></div>
+</div>
+<p>Merge the number of cells and the UMI/gene totals into a single data frame</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_stats</span> <span class="o">&lt;-</span> <span class="n">merge</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">cells_per_cluster</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span>  <span class="n">per_cluster_stats</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Cluster&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Calculate the mean number of UMIs and genes per tixel for each cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>umi_gene_per_tixel &lt;- aggregate(list(mean_nUMI_per_tixel = data$nCount_SCT, mean_nGene_per_tixel = data$nFeature_SCT),by = list(Cluster = data$SCT_snn_res.0.4), FUN=mean)
+</pre></div>
+</div>
+<p>Calculate the standard deviation of the number of UMIs and genes per tixel for each cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>std_umi_gene_tixel &lt;- aggregate(list(std_nUMI_per_tixel = data$nCount_SCT, std_nGene_per_tixel = data$nFeature_SCT), by = list(Cluster = data$SCT_snn_res.0.4), FUN=sd)
+</pre></div>
+</div>
+<dl>
+<dt>Merge the standard deviation of UMIs and genes per tixel into the cluster statistics data frame::</dt><dd><p>cluster_stats &lt;- merge(x=cluster_stats, y=std_umi_gene_tixel, by = ‘Cluster’)</p>
+</dd>
+<dt>Plot the object using DimPlot and SpatialDimPlot, coloring by the ‘Paired’ column and displaying labels::</dt><dd><p>p5 &lt;- DimPlot(object_AXOSpatial_seurat, cols = “Paired”, reduction = “umap”, label = TRUE, pt.size = 2)
+p6 &lt;- SpatialDimPlot(object_AXOSpatial_seurat, cols = “Paired”, label = TRUE, label.size = 3, pt.size.factor = pt_size_factor) + ggtitle(project_name) + theme(plot.title = element_text(hjust = 0.5), text=element_text(size=16))</p>
+</dd>
+<dt>Combine the two plots into a single object::</dt><dd><p>dimPlot = wrap_plots(p5 + p6)</p>
+</dd>
+<dt>Plot the object using SpatialDimPlot, highlighting cells with certain identities and displaying facets::</dt><dd><p>cellclusterPlot = SpatialDimPlot(object_AXOSpatial_seurat, cells.highlight = CellsByIdentities(object = object_AXOSpatial_seurat), facet.highlight = TRUE, ncol = 4, pt.size.factor = pt_size_factor)</p>
+</dd>
+<dt>Display the plot::</dt><dd><p>cellclusterPlot</p>
+</dd>
+<dt>Find all differentially expressed markers, catching any errors that might occur::</dt><dd><p>de_markers &lt;- try(FindAllMarkers(object_AXOSpatial_seurat, only.pos = TRUE))</p>
+</dd>
+<dt>If an error occurred during marker identification, skip this block::</dt><dd><dl class="simple">
+<dt>if(inherits(de_markers, “try-error”)){</dt><dd><p>print(“FindAllMarkers() failed, skipping…”)</p>
+</dd>
+</dl>
+<p>} else {</p>
+</dd>
+<dt>Select the top 5 markers for each cluster by average log2 fold change::</dt><dd><p>top5 &lt;- de_markers %&gt;% group_by(cluster) %&gt;% top_n(n = 5, wt = avg_log2FC)</p>
+</dd>
+</dl>
+<p>Generate a heatmap of the top 5 markers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  top5_heatmap &lt;- DoHeatmap(object_AXOSpatial_seurat, top5$gene, slot = &quot;scale.data&quot;)
+}
+</pre></div>
+</div>
+</section>
+<section id="identify-top-10-spatially-variable-genes">
+<h2>Identify top 10 spatially variable genes<a class="headerlink" href="#identify-top-10-spatially-variable-genes" title="Permalink to this heading"></a></h2>
+<p>Identify top 10 spatially variable genes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">object_AXOSpatial_seurat</span> <span class="o">&lt;-</span> <span class="n">FindSpatiallyVariableFeatures</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="s2">&quot;SCT&quot;</span><span class="p">,</span>
+                                                        <span class="n">features</span> <span class="o">=</span> <span class="n">VariableFeatures</span><span class="p">(</span><span class="n">object_AXOSpatial_seurat</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">1000</span><span class="p">],</span>
+                                                        <span class="n">selection</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;markvariogram&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl>
+<dt>Select the top 10 variable features::</dt><dd><p>top.features &lt;- head(SpatiallyVariableFeatures(object_AXOSpatial_seurat, selection.method = “markvariogram”), 10)</p>
+</dd>
+<dt>Create a list to store the plots of each top feature::</dt><dd><p>de_list &lt;- list()</p>
+</dd>
+<dt>Iterate through the top features and create a SpatialFeaturePlot for each one::</dt><dd><dl class="simple">
+<dt>for(i in top.features){</dt><dd><dl class="simple">
+<dt>de_list[[i]] &lt;- SpatialFeaturePlot(object_AXOSpatial_seurat, features = i, ncol = 1, alpha = c(.8, 2), pt.size.factor = 1.85) +</dt><dd><p>ggplot2::scale_fill_gradientn(colours=inferno(20))</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+<dt>Combine the plots into a single object with three columns::</dt><dd><p>top10_spatial_plots &lt;- wrap_plots(de_list, ncol = 3)</p>
+</dd>
+</dl>
+</section>
+<section id="create-a-position-file-with-log-umi-and-genes">
+<h2>Create a position file with log UMI and Genes<a class="headerlink" href="#create-a-position-file-with-log-umi-and-genes" title="Permalink to this heading"></a></h2>
+<p>Read in the tissue positions list CSV file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tissue_positions_list</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">csv</span><span class="p">(</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">,</span><span class="s1">&#39;tissue_positions_list.csv&#39;</span><span class="p">),</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Extract the coordinates and metadata from the object:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>coord_all_tixels = object_AXOSpatial_seurat_all_tixels0@images$slice1@coordinates
+meta_all_tixels = object_AXOSpatial_seurat_all_tixels0@meta.data
+</pre></div>
+</div>
+<p>Add a ‘cell’ column to the metadata with the row names as values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>meta_all_tixels$cell = rownames(meta_all_tixels)
+</pre></div>
+</div>
+<p>Merge the tissue positions list and metadata data frames by the ‘V1’ and ‘cell’ columns, respectively:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tissue_positions_list_m</span> <span class="o">&lt;-</span> <span class="n">merge</span><span class="p">(</span><span class="n">tissue_positions_list</span><span class="p">,</span> <span class="n">meta_all_tixels</span><span class="p">,</span> <span class="n">by</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;V1&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;cell&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Remove the ‘orig.ident’ and ‘V1’ columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tissue_positions_list_m$orig.ident = NULL
+</pre></div>
+</div>
+<p>Take the logarithm (base 2) of the ‘nCount_Spatial’ and ‘nFeature_Spatial’ columns, adding 1 to the values before taking the logarithm:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tissue_positions_list_m$nCount_Spatial = log(tissue_positions_list_m$nCount_Spatial+1)
+tissue_positions_list_m$nFeature_Spatial = log(tissue_positions_list_m$nFeature_Spatial+1)
+</pre></div>
+</div>
+<p>Write the modified data frame to a CSV file, with no row or column names, using a comma as the separator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">write</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">tissue_positions_list_m</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s1">&#39;spatial&#39;</span><span class="p">,</span><span class="s1">&#39;tissue_positions_list_log_UMI_Genes.csv&#39;</span><span class="p">),</span> <span class="n">col</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="go-analysis">
+<h2>Go Analysis<a class="headerlink" href="#go-analysis" title="Permalink to this heading"></a></h2>
+<p>Initialize a list to store the results of the Gene Ontology (GO) analysis
+Initialize a variable to keep track of whether the GO analysis failed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GO_results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">GOFailed</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Extract the clusters from the object’s metadata and convert them to characters::</dt><dd><p>clusters = as.character(sort(as.numeric(unique(<a class="reference external" href="mailto:object_AXOSpatial_seurat&#37;&#52;&#48;meta&#46;data$SCT_snn_res&#46;0&#46;4">object_AXOSpatial_seurat<span>&#64;</span>meta<span>&#46;</span>data$SCT_snn_res<span>&#46;</span>0<span>&#46;</span>4</a>))-1))</p>
+</dd>
+</dl>
+<p>Convert the ‘cluster’ column of the differentially expressed markers data frame to characters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>de_markers$cluster = as.character(de_markers$cluster)
+</pre></div>
+</div>
+<p>Iterate through each cluster:</p>
+<dl class="simple">
+<dt>for (<a href="#id1"><span class="problematic" id="id2">cluster_</span></a> in clusters) {</dt><dd><p>print(paste0(“Cluster:”, <a href="#id3"><span class="problematic" id="id4">cluster_</span></a>))</p>
+</dd>
+</dl>
+<p>Extract the differentially expressed genes for the current cluster:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>de_markers_cluster = dplyr::filter(de_markers, cluster == cluster_)$gene
+</pre></div>
+</div>
+<p>If there are differentially expressed genes for the current cluster. Perform the Gene Ontology analysis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">de_markers_cluster</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">GOterms</span> <span class="o">=</span> <span class="n">topGOterms</span><span class="p">(</span><span class="n">fg</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="n">de_markers_cluster</span><span class="p">,</span> <span class="n">bg</span><span class="o">.</span><span class="n">genes</span> <span class="o">=</span> <span class="n">rownames</span><span class="p">(</span><span class="n">object_AXOSpatial</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AtlasXomics.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

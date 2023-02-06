@@ -35,8 +35,10 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 
    Installation
    SpatialEpigenome
+
+.. image:: ./images/atlasbg.png
+
+..
    SpatialTranscriptome
    Glossary
    FAQ_Spatial_Epigenome
-
-.. image:: ./images/atlasbg.png

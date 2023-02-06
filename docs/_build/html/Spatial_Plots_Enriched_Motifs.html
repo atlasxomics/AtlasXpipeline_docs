@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spatial Plots of Enriched Motifs &mdash; Introduction to ATAC Analysis with DBiT-seq 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Introduction to ATAC Analysis with DBiT-seq
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AtlasXbrowser:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/OpeningFolder.html">OpeningFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ImageConfiguration.html">ImageConfiguration</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/Thresholding.html">Thresholding</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ROICharacterization.html">ROICharacterization</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/SpatialFolder.html">SpatialFolder</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXbrowser/en/latest/ExampleWalkthrough.html">ExampleWalkthrough</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXplore:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/GenomeBrowser.html">Genome Browser</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/MotifSearch.html">Motif Search</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/LassoSelector.html">Lasso Selector</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/CellTypeLabeling.html">Cell Type Labeling</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/SavingPlots.html">Plot Saving</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.atlasxomics.com/projects/AtlasXplore/en/latest/FAQ.html">FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AtlasXomics:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="SpatialEpigenome.html">Spatial Epigenome</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Introduction to ATAC Analysis with DBiT-seq</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Spatial Plots of Enriched Motifs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Spatial_Plots_Enriched_Motifs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="spatial-plots-of-enriched-motifs">
+<h1>Spatial Plots of Enriched Motifs<a class="headerlink" href="#spatial-plots-of-enriched-motifs" title="Permalink to this heading"></a></h1>
+<p>We use the ArchR package to perform motif enrichment analysis on the dataset and identify enriched motifs. We then use the Seurat package to add spatial data to the analysis and plot the spatial data using the enriched motifs as the features. This allows us to visualize which motifs are enriched in specific regions of the tissue, visualize it’s spatial distribution, and gain insights into the regulation of gene expression in the tissue.</p>
+<section id="call-peaks-and-add-group-coverages-and-reproducible-peak-sets">
+<h2><strong>Call peaks and add group coverages and reproducible peak sets</strong><a class="headerlink" href="#call-peaks-and-add-group-coverages-and-reproducible-peak-sets" title="Permalink to this heading"></a></h2>
+<p>Use the addGroupCoverages function to call on the input ArchR project object, proj_in_tissue, to add group coverages to the object. The groupBy parameter specifies which metadata column to group the coverages by, in this case ‘Clusters’.
+This function calculates the average coverage of each peak in a single-cell RNA-seq dataset, grouped by ‘Clusters’. The resulting object contains the average coverage of each peak in each group, along with metadata about the peaks and the groups. This is done to obtain an understanding of the coverage of peaks across different clusters to provide insights into various cluster characteristics.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">out_list</span> <span class="o">&lt;-</span> <span class="n">tryCatch</span><span class="p">(</span><span class="n">expr</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addGroupCoverages</span><span class="p">(</span><span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">groupBy</span> <span class="o">=</span> <span class="s2">&quot;Clusters&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the findMacs2 function to find the path to the macs2 program on the system. Then, use the addReproduciblePeakSet function to call on the proj_in_tissue to add reproducible peak sets to the object. The groupBy, pathToMacs2, and genomeSize parameters are used to specify the metadata column to group the peaks by, the path to the macs2 program, and the size of the genome. The force parameter is set to TRUE to force re-running the peak calling even if it has already been performed. This step is done to identify reproducible peaks across different clusters.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">pathToMacs2</span> <span class="o">&lt;-</span> <span class="n">findMacs2</span><span class="p">()</span>
+ <span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addReproduciblePeakSet</span><span class="p">(</span>
+   <span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span>
+   <span class="n">groupBy</span> <span class="o">=</span> <span class="s2">&quot;Clusters&quot;</span><span class="p">,</span>
+   <span class="n">pathToMacs2</span> <span class="o">=</span> <span class="n">pathToMacs2</span><span class="p">,</span>
+   <span class="n">genomeSize</span> <span class="o">=</span> <span class="n">genomeSize</span><span class="p">,</span>
+   <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="add-peak-matrices">
+<h2>Add peak matrices<a class="headerlink" href="#add-peak-matrices" title="Permalink to this heading"></a></h2>
+<p>Use the addPeakMatrix function to call on proj_in_tissue to add a peak matrix to the object. This matrix is used to store the peak calls, which are regions of the genome that show an enrichment of reads when compared to a background. This step is done to create a data structure that can efficiently store and retrieve the peak calls, which can be used for downstream analysis.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addPeakMatrix</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="add-deviation-matrices-motif-enrichment">
+<h2>Add deviation matrices, motif enrichment<a class="headerlink" href="#add-deviation-matrices-motif-enrichment" title="Permalink to this heading"></a></h2>
+<p>Check if the Motif column is not in the names of the peak annotation data frame. If this is the case, then add motif annotations to the object using the addMotifAnnotations function. The motifSet parameter is set to cisbp for human and mouse datasets, and encode for all other species. The name parameter is set to Motif, and the force parameter is set to TRUE to force re-running the motif enrichment analysis even if it has already been performed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="s2">&quot;Motif&quot;</span> <span class="o">%</span><span class="n">ni</span><span class="o">%</span> <span class="n">names</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="nd">@peakAnnotation</span><span class="p">)){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">data_species</span> <span class="o">==</span> <span class="s2">&quot;hg38&quot;</span> <span class="o">||</span> <span class="n">data_species</span> <span class="o">==</span> <span class="s2">&quot;mm10&quot;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addMotifAnnotations</span><span class="p">(</span><span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">motifSet</span> <span class="o">=</span> <span class="s2">&quot;cisbp&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Motif&quot;</span><span class="p">,</span> <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addMotifAnnotations</span><span class="p">(</span><span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">motifSet</span> <span class="o">=</span> <span class="s2">&quot;encode&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Motif&quot;</span><span class="p">,</span> <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">species</span> <span class="o">=</span> <span class="n">getGenome</span><span class="p">(</span><span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">))</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Use the addBgdPeaks() function to add background peak information. This function takes the ArchRProj object as an input, along with the force argument, which is set to TRUE so that it’ll overwrite any existing background peak information in the object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addBgdPeaks</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add a matrix of deviations using the addDeviationsMatrix() function. This function takes the ArchRProj object as an input, along with the peakAnnotation argument, which specifies the name of the peak annotations to use when calculating the deviations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addDeviationsMatrix</span><span class="p">(</span>
+    <span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span>
+    <span class="n">peakAnnotation</span> <span class="o">=</span> <span class="s2">&quot;Motif&quot;</span><span class="p">,</span>
+    <span class="n">force</span> <span class="o">=</span> <span class="n">TRUE</span>
+  <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="save-project-as-rds-file">
+<h2>Save project as RDS file<a class="headerlink" href="#save-project-as-rds-file" title="Permalink to this heading"></a></h2>
+<p>Save the project as an RDS file using the saveRDS() function. RDS files are a binary file format so it can be loaded and used in future analyses</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">saveRDS</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">paste0</span><span class="p">(</span><span class="n">project_name</span><span class="p">,</span> <span class="s2">&quot;_spatial_markerMotifs.rds&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="get-marker-features-and-create-list-of-enriched-motifs">
+<h2>Get marker features and create list of enriched motifs<a class="headerlink" href="#get-marker-features-and-create-list-of-enriched-motifs" title="Permalink to this heading"></a></h2>
+<p>Use getMarkerFeatures() to identify marker features within the ArchRProj object. The identified markers are then filtered using getMarkers() and stored in the motifs variable. This step is done to identify markers that are specific to certain clusters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>markersMotifs &lt;- getMarkerFeatures(
+ArchRProj = proj_in_tissue,
+useMatrix = &quot;MotifMatrix&quot;,
+groupBy = &quot;Clusters&quot;,
+bias = c(&quot;TSSEnrichment&quot;, &quot;log10(nFrags)&quot;),
+testMethod = &quot;wilcoxon&quot;,
+useSeqnames = &#39;z&#39;
+)
+
+markerMotifsList &lt;- getMarkers(markersMotifs,
+motifs &lt;- list()
+  for (i in seq_len(length(markerMotifsList))) {
+    if (length(markerMotifsList[[i]]$name)&gt;1) {
+      motifs &lt;- c(motifs, markerMotifsList[[i]]$name[[1]])
+      motifs &lt;- c(motifs, markerMotifsList[[i]]$name[[2]])
+    }
+  }
+</pre></div>
+</div>
+<p>If the input list of motifs has more than one element, converts the motif to a string, and add a “z:” prefix to each motif, remove duplicate motifs, and assign the resulting list of motifs to the variable motifs. We do this to create a list of enriched motifs that are specific to certain clusters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="k">if</span> <span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">motifs</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">motifs</span> <span class="o">&lt;-</span> <span class="n">unlist</span><span class="p">(</span><span class="n">motifs</span><span class="p">)</span>
+    <span class="n">motifs</span> <span class="o">&lt;-</span> <span class="n">paste0</span><span class="p">(</span><span class="s1">&#39;z:&#39;</span><span class="p">,</span> <span class="n">motifs</span><span class="p">)</span>
+<span class="n">motifs</span> <span class="o">&lt;-</span> <span class="n">unique</span><span class="p">(</span><span class="n">motifs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Apply addImputeWeights to the input Seurat object and assign the result to the variable proj_in_tissue. This step is done to improve the accuracy of the marker features by imputing missing values.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proj_in_tissue</span> <span class="o">&lt;-</span> <span class="n">addImputeWeights</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="deviation-scores-and-matrices">
+<h2>Deviation scores and matrices<a class="headerlink" href="#deviation-scores-and-matrices" title="Permalink to this heading"></a></h2>
+<p>Apply getDeviation_ArchR to the modified Seurat object and the list of motifs, along with the result of applying the getImputeWeights function to the modified Seurat object. Assign the result to the variable dev_score.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev_score</span> <span class="o">&lt;-</span> <span class="n">getDeviation_ArchR</span><span class="p">(</span><span class="n">ArchRProj</span> <span class="o">=</span> <span class="n">proj_in_tissue</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">motifs</span><span class="p">,</span> <span class="n">imputeWeights</span> <span class="o">=</span> <span class="n">getImputeWeights</span><span class="p">(</span><span class="n">proj_in_tissue</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Set all NA values in dev_score to 0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev_score</span><span class="p">[</span><span class="ow">is</span><span class="o">.</span><span class="n">na</span><span class="p">(</span><span class="n">dev_score</span><span class="p">)]</span> <span class="o">&lt;-</span> <span class="mi">0</span> <span class="c1">#min(dev_score, na.rm = TRUE)</span>
+</pre></div>
+</div>
+<p>Create a new Seurat object using the dev_score matrix and the metadata from the input Seurat object, and assign the result to the variable object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span> <span class="o">&lt;-</span> <span class="n">CreateSeuratObject</span><span class="p">(</span><span class="n">counts</span> <span class="o">=</span> <span class="n">dev_score</span><span class="p">,</span> <span class="n">assay</span> <span class="o">=</span> <span class="s2">&quot;Spatial&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="filtering-and-setting-default-assay">
+<h2>Filtering and setting default assay<a class="headerlink" href="#filtering-and-setting-default-assay" title="Permalink to this heading"></a></h2>
+<p>Load image from a specified directory, filter the image based on the cells present in the object Seurat object, and set the image as the default assay for object.</p>
+<p>Assign object to the variable spatial.obj.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">&lt;-</span> <span class="n">Read10X_Image</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">dir</span> <span class="o">=</span> <span class="n">spatialFolder</span><span class="p">,</span> <span class="nb">filter</span><span class="o">.</span><span class="n">matrix</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">&lt;-</span> <span class="n">image</span><span class="p">[</span><span class="n">Cells</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="nb">object</span><span class="p">)]</span>
+    <span class="n">DefaultAssay</span><span class="p">(</span><span class="nb">object</span> <span class="o">=</span> <span class="n">image</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="s2">&quot;Spatial&quot;</span>
+    <span class="nb">object</span><span class="p">[[</span><span class="s1">&#39;slice1&#39;</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">image</span>
+
+<span class="n">spatial</span><span class="o">.</span><span class="n">obj</span> <span class="o">&lt;-</span> <span class="nb">object</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-spatial-plots-for-enriched-motifs">
+<h2>Creating Spatial plots for enriched motifs<a class="headerlink" href="#creating-spatial-plots-for-enriched-motifs" title="Permalink to this heading"></a></h2>
+<p>Create a list of plots called motif_list. For each enriched motif in the spatial.obj object, create a plot using SpatialPlot_new(). The features argument specifies the motif to plot, and the pt.size.factor argument specifies the size of the points on the plot. The image.alpha and stroke arguments control the transparency and stroke width of the plot. The alpha argument controls the transparency of the points on the plot. The min.cutoff and max.cutoff arguments specify the minimum and maximum values to include on the plot. Then sets the shape of the points to squares using the shape parameter. Add the resulting plot to motif_list.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>motif_list &lt;- list()
+    for(i in rownames(x=spatial.obj)){
+      motif_list[[i]] &lt;- SpatialPlot_new(spatial.obj, features=i, pt.size.factor = pt_size_factor,
+                                         image.alpha = 0, stroke = 0, alpha = c(1, 1),  min.cutoff = &quot;q10&quot;, max.cutoff = &quot;q90&quot;) +
+        theme(legend.position = &quot;top&quot;, legend.text=element_text(size=9), legend.title=element_text(size=9))
+      motif_list[[i]]$layers[[1]]$aes_params &lt;- c(motif_list[[i]]$layers[[1]]$aes_params, shape=22) # set spots to square shape
+    }
+</pre></div>
+</div>
+<p>Create a combined plot of all the individual motif plots using the wrap_plots function, specifying the number of columns.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">motif_plots</span> <span class="o">&lt;-</span> <span class="n">wrap_plots</span><span class="p">(</span><span class="n">motif_list</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the combined plot as a PNG image.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">png</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s2">&quot;./figure/motifs.png&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ceiling</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">motifs</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">motif_plots</span><span class="p">)</span>
+  <span class="n">dev</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Return a list containing the modified Seurat object, the spatial.obj object, and the list of motifs</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># return proj_in_tissue
+  list(proj_in_tissue = proj_in_tissue, spatial.obj = spatial.obj, motifs = motifs)
+}, error = function(e){
+  print(paste0(&quot;motif plots skipped. Original error: &quot;, e))
+  return(1)
+})
+if(class(out_list) == &#39;list&#39;){
+  proj_in_tissue = out_list$proj_in_tissue
+  spatial.obj = out_list$spatial.obj
+  motifs = out_list$motifs
+  class(proj_in_tissue)
+} else{
+  print(&quot;out_list not returned&quot;)
+}
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, AtlasXomics.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
