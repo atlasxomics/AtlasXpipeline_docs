@@ -1,8 +1,8 @@
 Spatial Epigenome 
 _________________
 
-Overview of Visualization
--------------------------
+Overview of Visualization  Workflow
+--------------------------------
 This tutorial aims to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
 prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
 this tutorial centers around the usage of both `ArchR  <https://www.archrproject.com/bookdown/index.html>`_
@@ -179,18 +179,7 @@ score matrix containing all gene accessibility scores and metadata are then extr
 
    spatial_in_tissue.obj$orig.ident = as.factor(project_name)
    Idents(spatial_in_tissue.obj) = 'orig.ident'
-   spatial_in_tissue.obj = AddMetaData(spatial_in_tissue.obj, spatial_in_tissue.obj@images$slice1@coordinates)
-
-   ############### Add log2 nFrags back to tissue_positions_list
-   tissue_positions_list = read.csv(file = file.path(spatialFolder,'tissue_positions_list.csv'), header = 0)
-   meta_tixels <- rownames(meta.data)
-   n_frags <- meta.data$nFrags
-
-   n_frags_df <- data.frame(nFrags_log = log(x = n_frags + 1, base = 10))
-   rownames(n_frags_df) <- meta_tixels
-   tissue_positions_list_m <- merge(tissue_positions_list, n_frags_df, by.x = 'V1', by.y = 'row.names')
-   tissue_positions_list_m$nFrags_log_dupe <- tissue_positions_list_m$nFrags_log
-   write.table(tissue_positions_list_m, file.path(spatialFolder, "tissue_positions_list_log_nFrags.csv"), col.names = FALSE, row.names = FALSE, sep = ',')                              
+   spatial_in_tissue.obj = AddMetaData(spatial_in_tissue.obj, spatial_in_tissue.obj@images$slice1@coordinates)        
                                
 
 Once the spatial objects are generated, various metadata and gene score information can be plotted
@@ -263,6 +252,7 @@ Various metadata metrics found in metadata slot can be plotted. Here, quality me
 .. image:: ./images/metadata_hist.png
   :width: 650
   :alt: Plots displaying quality control metrics on histology
+  
 Standard ArchR plotting can be used with the computed **proj_in_tissue** project. For more information on
 function methodology and documentation, please see ArchR's `tutorial  <https://www.archrproject.com/bookdown/index.html>`_
 
@@ -279,19 +269,14 @@ in specific regions of the tissue, visualize it's spatial distribution, and gain
 ------------------------------------------------------------------------
 
 **Add group coverages**
-Use the addGroupCoverages function to call on the input ArchR project object, proj_in_tissue, to add group coverages to the object. The groupBy 
-parameter specifies which metadata column to group the coverages by, in this case 'Clusters'.  
-This function calculates the average coverage of each peak in a single-cell RNA-seq dataset, grouped by 'Clusters'. The resulting object contains the 
-average coverage of each peak in each group, along with metadata about the peaks and the groups. This is done to obtain an understanding of the 
-coverage of peaks across different clusters to provide insights into various cluster characteristics.::
+
+It's important to understand how gene expression varies across different cell types or clusters. The addGroupCoverages function calculates the average coverage of each genomic region (or "peak") in the dataset, grouped by a specific metadata column (in this case, Clusters). By doing so, it allows us to compare the average expression of each peak across different cell types, providing insights into various cluster characteristics.::
 
     proj_in_tissue <- addGroupCoverages(ArchRProj = proj_in_tissue, groupBy = "Clusters")
 
 **Call peaks using MACS2** 
-Use the findMacs2 function to find the path to the macs2 program on the system. Then, use the addReproduciblePeakSet function to call on the 
-proj_in_tissue to add reproducible peak sets to the object. The groupBy, pathToMacs2, and genomeSize parameters are used to specify the metadata column 
-to group the peaks by, the path to the macs2 program, and the size of the genome. The force parameter is set to TRUE to force re-running the peak 
-calling even if it has already been performed. This step is done to identify reproducible peaks across different clusters.::
+
+It's also important to identify genomic regions that are consistently expressed across multiple samples. These are called "peaks" and can be identified using software like MACS2. The addReproduciblePeakSet function to call peaks on our dataset (proj_in_tissue) and add the results to the object. To use this function, we pass in the ArchRProj object, the name of the metadata column to group the peaks by (Clusters), the path to the MACS2 program, and the size of the genome we're analyzing. We also set the force parameter to TRUE, which tells the function to re-run peak calling even if it's already been done (useful if we've made changes to our dataset).::
 
     pathToMacs2 <- findMacs2()
     proj_in_tissue <- addReproduciblePeakSet(
@@ -304,10 +289,7 @@ calling even if it has already been performed. This step is done to identify rep
 
 Add peak matrices
 ------------------------
-
-Use the addPeakMatrix function to call on proj_in_tissue to add a peak matrix to the object. This matrix is used to store the peak calls, which are 
-regions of the genome that show an enrichment of reads when compared to a background. This step is done to create a data structure that can efficiently 
-store and retrieve the peak calls, which can be used for downstream analysis.::
+To store and retrieve peak calls efficiently, use the addPeakMatrix function to add a peak matrix to the proj_in_tissue object. This matrix will store the peak calls which are regions of the genome that show an enrichment of reads when compared to a background.::
 
    proj_in_tissue <- addPeakMatrix(proj_in_tissue)
 
@@ -315,7 +297,8 @@ store and retrieve the peak calls, which can be used for downstream analysis.::
 Motif enrichment (Deviation)
 ----------------------------------------
 **Add motif annotations** 
-First, we check if motif annotations are already present in the project. If not, we add motif annotations to the ArchR project using the addMotifAnnotations function. If the data species is "hg38" or "mm10", we use the "cisbp" motif set. Otherwise, we use the "encode" motif set and obtain the species information from the project's genome.::
+
+Check if motif annotations are already present in the project. If not, use the addMotifAnnotations function to add them to the ArchR project. The motif set used will depend on the data species. If the species is "hg38" or "mm10", the "cisbp" motif set is used. Otherwise, the "encode" motif set is used and the species information is obtained from the project's genome.::
 
    if("Motif" %ni% names(proj_in_tissue@peakAnnotation)){
     if (data_species == "hg38" || data_species == "mm10") {
@@ -326,13 +309,12 @@ First, we check if motif annotations are already present in the project. If not,
    }
    
 **Add background peaks** 
-Use the addBgdPeaks() function to add background peak information. This function takes the ArchRProj object as an input, along with the force argument, which is set to TRUE so that it'll overwrite any existing background peak information in the object. ::
+Use the addBgdPeaks() function to add background peak information to the ArchRProj. The force argument is set to TRUE so that it'll overwrite any existing background peak information in the object. ::
 
    proj_in_tissue <- addBgdPeaks(proj_in_tissue, force = TRUE)
 
 **Add deviations matrix**
-Add a matrix of deviations using the addDeviationsMatrix() function. This function takes the ArchRProj object as an input, along with the 
-peakAnnotation argument, which specifies the name of the peak annotations to use when calculating the deviations. ::
+Use the addDeviationsMatrix() function to add a matrix of deviations to the ArchRProj object. The peakAnnotation argument specifies the name of the peak annotations to use when calculating the deviations.::
 
    proj_in_tissue <- addDeviationsMatrix(
       ArchRProj = proj_in_tissue, 
@@ -350,8 +332,7 @@ Save the project as an RDS file using the saveRDS() function. RDS files are a bi
 Get marker features and create list of enriched motifs
 --------------------------------------------------------
 
-Use getMarkerFeatures() to identify marker features within the ArchRProj object. The identified markers are then filtered using getMarkers() and stored 
-in the motifs variable. This step is done to identify markers that are specific to certain clusters.  ::
+To identify markers that are specific to certain clusters, use getMarkerFeatures() function to find marker features within the ArchRProj object. The identified markers are then filtered using getMarkers() and stored in the markersMotifs variable. ::
 
    markersMotifs <- getMarkerFeatures(
    ArchRProj = proj_in_tissue,
@@ -362,7 +343,7 @@ in the motifs variable. This step is done to identify markers that are specific 
    useSeqnames = 'z'
    )
    
-**Get marker motifs**
+**Get marker motifs** ::
 
    markerMotifsList <- getMarkers(markersMotifs,
    motifs <- list()
@@ -373,7 +354,7 @@ in the motifs variable. This step is done to identify markers that are specific 
       }
     }
 
-If the input list of motifs has more than one element, converts the motif to a string, and add a "z:" prefix to each motif, remove duplicate motifs, 
+If the input list of motifs has more than one element, convert the motif to a string, and add a "z:" prefix to each motif, remove duplicate motifs, 
 and assign the resulting list of motifs to the variable motifs. We do this to create a list of enriched motifs that are specific to certain clusters. 
 ::
 
@@ -386,12 +367,17 @@ and assign the resulting list of motifs to the variable motifs. We do this to cr
 Apply addImputeWeights to the input Seurat object and assign the result to the variable proj_in_tissue. This step is done to improve the accuracy of the marker features by imputing missing values.::
 
    proj_in_tissue <- addImputeWeights(proj_in_tissue)
+   
+Source the getDeviation_ArchR.R, getGeneScore_ArchR.R, SpatialPlot_new.R, and SpatialDimPlot_new.R script. The source function reads in these scripts that contain R code for specific functions and visualizations to be used in our current R session. ::
+   
+   source(paste0(script.dir, "/", "getDeviation_ArchR.R"))
+   source(paste0(script.dir, "/", "getGeneScore_ArchR.R"))
+   source(paste0(script.dir, "/", "SpatialPlot_new.R"))
+   source(paste0(script.dir, "/", "SpatialDimPlot_new.R"))
 
 Deviation scores and matrices
 ----------------------------------------
-
-Apply getDeviation_ArchR to the modified Seurat object and the list of motifs, along with the result of applying the getImputeWeights function to the 
-modified Seurat object. Assign the result to the variable dev_score. ::
+Compute deviation scores for the motifs of interest using the getDeviation_ArchR() function. The function takes the ArchR project object, the list of motifs, and the imputed weights computed with getImputeWeights(). Assign the resulting deviation scores to the variable dev_scores. ::
 
    dev_score <- getDeviation_ArchR(ArchRProj = proj_in_tissue, name = motifs, imputeWeights = getImputeWeights(proj_in_tissue))
 
@@ -436,11 +422,11 @@ parameter. Add the resulting plot to motif_list. ::
         motif_list[[i]]$layers[[1]]$aes_params <- c(motif_list[[i]]$layers[[1]]$aes_params, shape=22) # set spots to square shape 
       }
 
-Create a combined plot of all the individual motif plots using the wrap_plots function, specifying the number of columns. ::
+**Create a combined plot** of all the individual motif plots using the wrap_plots function, specifying the number of columns. ::
 
    motif_plots <- wrap_plots(motif_list, ncol = 3)
 
-Save the combined plot as a PNG image. ::
+**Save the combined plot as a PNG image.** ::
 
    png(file="./figure/motifs.png", width = 8, height=ceiling(length(motifs)/3)*3, unit="in", res = 300)
     print(motif_plots)
@@ -450,19 +436,29 @@ Save the combined plot as a PNG image. ::
 .. image:: ./images/motifs.png
    :width: 400
    :alt: Motif Plots
+   
+ **Generate List of ggplot Objects for Each Motif Plot**
+Create individual motif plots by by generating a list of ggplot objects for each motif plot. It iterates over the row names of spatial.obj, extracts the motif PWM for each row, and converts it to a probability matrix. It then uses the probability matrix to create a ggplot object for the motif plot. The reason for this step is to create individual motif plots that can be combined into a single plot.::
 
-require(ggseqlogo)
-  motif_pwm <- getPeakAnnotation(proj_in_tissue, "Motif")$motifs
-  logo_list <- list()
-  for(i in rownames(x=spatial.obj)){
- motif_ID <- motif_pwm[[str_replace(i, "-", "_")]] # change here
- mat <- TFBSTools::as.matrix(motif_ID)
- probmat <- exp(mat) * matrix(TFBSTools::bg(motif_ID), nrow = nrow(mat), ncol = ncol(mat),  byrow = FALSE)
- logo_list[[i]] <- ggseqlogo(probmat)
-  }
-  logo_plots <- wrap_plots(logo_list, ncol = 3)
+   require(ggseqlogo)
+     motif_pwm <- getPeakAnnotation(proj_in_tissue, "Motif")$motifs
+     logo_list <- list()
+     for(i in rownames(x=spatial.obj)){
+    motif_ID <- motif_pwm[[str_replace(i, "-", "_")]] # change here
+    mat <- TFBSTools::as.matrix(motif_ID)
+    probmat <- exp(mat) * matrix(TFBSTools::bg(motif_ID), nrow = nrow(mat), ncol = ncol(mat),  byrow = FALSE)
+    logo_list[[i]] <- ggseqlogo(probmat)
+     }
+     
+**Combine Individual Motif Plots into One Plot** 
 
-      png(file="logos.png", width = 8, height=ceiling(length(motifs)/3)*1.5, unit="in", res = 300)
+Use the wrap_plots function from the ggseqlogo package to combine the plots into one plot with multiple columns.::
+
+     logo_plots <- wrap_plots(logo_list, ncol = 3)
+     
+**Save Combined Motif Plot as PNG Image** ::
+
+      png(file="logos.png", width = 8, height=ceiling(length(motifs)/3)*1.5, unit="in",         res = 300)
       print(logo_plots)
       dev.off()
 
