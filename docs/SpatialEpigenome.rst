@@ -2,7 +2,7 @@ Spatial Epigenome
 _________________
 
 Overview of Visualization  Workflow
---------------------------------
+------------------------------------
 This tutorial aims to provide a brief introduction to getting started with basic downstream spatial ATAC analysis
 prepared by the Deterministic Barcoding in Tissue for Spatial Omics Sequencing (DBiT-seq) protocol. Much of
 this tutorial centers around the usage of both `ArchR  <https://www.archrproject.com/bookdown/index.html>`_
@@ -270,13 +270,13 @@ in specific regions of the tissue, visualize it's spatial distribution, and gain
 
 **Add group coverages**
 
-It's important to understand how gene expression varies across different cell types or clusters. The addGroupCoverages function calculates the average coverage of each genomic region (or "peak") in the dataset, grouped by a specific metadata column (in this case, Clusters). By doing so, it allows us to compare the average expression of each peak across different cell types, providing insights into various cluster characteristics.::
+The addGroupCoverages function serves several important purposes in the analysis of single-cell ATAC data. Firstly, it helps to address the binary nature of the data by creating pseudo-bulk replicates. Additionally, it prepares the data for peak-calling and helps to determine the reproducibility of the peak-calling step. Gene score information is available which attempts to assign an accessibility "score" to each gene based on the number of peaks near its transcription start site (TSS). Therefore, while addGroupCoverages does not directly measure gene expression, it calculates the average coverage of each genomic region or "peak" in the dataset, grouped by a specific metadata column such as Clusters. This allows us to compare the average accessibility score of each peak across different cell types or clusters, providing insights into various cluster characteristics.::
 
     proj_in_tissue <- addGroupCoverages(ArchRProj = proj_in_tissue, groupBy = "Clusters")
 
 **Call peaks using MACS2** 
 
-It's also important to identify genomic regions that are consistently expressed across multiple samples. These are called "peaks" and can be identified using software like MACS2. The addReproduciblePeakSet function to call peaks on our dataset (proj_in_tissue) and add the results to the object. To use this function, we pass in the ArchRProj object, the name of the metadata column to group the peaks by (Clusters), the path to the MACS2 program, and the size of the genome we're analyzing. We also set the force parameter to TRUE, which tells the function to re-run peak calling even if it's already been done (useful if we've made changes to our dataset).::
+It's also important to identify accessible genomic regions that are consistently expressed across multiple samples. These are called "peaks" and can be identified using software like MACS2. We call the addReproduciblePeakSet function to call peaks on our dataset (proj_in_tissue) and add the results to the object. To use this function, we pass in the ArchRProj object, the name of the metadata column to group the peaks by (Clusters), the path to the MACS2 program, and the size of the genome we're analyzing. We also set the force parameter to TRUE, which tells the function to re-run peak calling even if it's already been done (useful if we've made changes to our dataset).::
 
     pathToMacs2 <- findMacs2()
     proj_in_tissue <- addReproduciblePeakSet(
@@ -298,15 +298,10 @@ Motif enrichment (Deviation)
 ----------------------------------------
 **Add motif annotations** 
 
-Check if motif annotations are already present in the project. If not, use the addMotifAnnotations function to add them to the ArchR project. The motif set used will depend on the data species. If the species is "hg38" or "mm10", the "cisbp" motif set is used. Otherwise, the "encode" motif set is used and the species information is obtained from the project's genome.::
+Use the addMotifAnnotations function to add motif annotations to the ArchR project. The motif set used will depend on the data species. If the species is "hg38" or "mm10", the "cisbp" motif set is used. Otherwise, the "encode" motif set is used and the species information is obtained from the project's genome.::
 
-   if("Motif" %ni% names(proj_in_tissue@peakAnnotation)){
-    if (data_species == "hg38" || data_species == "mm10") {
-      proj_in_tissue <- addMotifAnnotations(ArchRProj = proj_in_tissue, motifSet = "cisbp", name = "Motif", force = TRUE)
-    } else {
       proj_in_tissue <- addMotifAnnotations(ArchRProj = proj_in_tissue, motifSet = "encode", name = "Motif", force = TRUE, species = getGenome(ArchRProj = proj_in_tissue))
-    }
-   }
+
    
 **Add background peaks** 
 Use the addBgdPeaks() function to add background peak information to the ArchRProj. The force argument is set to TRUE so that it'll overwrite any existing background peak information in the object. ::
@@ -314,7 +309,7 @@ Use the addBgdPeaks() function to add background peak information to the ArchRPr
    proj_in_tissue <- addBgdPeaks(proj_in_tissue, force = TRUE)
 
 **Add deviations matrix**
-Use the addDeviationsMatrix() function to add a matrix of deviations to the ArchRProj object. The peakAnnotation argument specifies the name of the peak annotations to use when calculating the deviations.::
+Use the addDeviationsMatrix() function to add a matrix of per-cell deviations to the ArchRProj object. The peakAnnotation argument specifies the name of the peak annotations to use when calculating the deviations.::
 
    proj_in_tissue <- addDeviationsMatrix(
       ArchRProj = proj_in_tissue, 
@@ -377,7 +372,7 @@ Source the getDeviation_ArchR.R, getGeneScore_ArchR.R, SpatialPlot_new.R, and Sp
 
 Deviation scores and matrices
 ----------------------------------------
-Compute deviation scores for the motifs of interest using the getDeviation_ArchR() function. The function takes the ArchR project object, the list of motifs, and the imputed weights computed with getImputeWeights(). Assign the resulting deviation scores to the variable dev_scores. ::
+Use the getDeviation_ArchR() function to get the deviation scorematrix from the archR project. The function takes the ArchR project object, the list of motifs, and the imputed weights computed with getImputeWeights(). Assign the resulting deviation scores to the variable dev_scores. ::
 
    dev_score <- getDeviation_ArchR(ArchRProj = proj_in_tissue, name = motifs, imputeWeights = getImputeWeights(proj_in_tissue))
 
@@ -455,11 +450,7 @@ Create individual motif plots by by generating a list of ggplot objects for each
 Use the wrap_plots function from the ggseqlogo package to combine the plots into one plot with multiple columns.::
 
      logo_plots <- wrap_plots(logo_list, ncol = 3)
-     
-**Save Combined Motif Plot as PNG Image** ::
-
-      png(file="logos.png", width = 8, height=ceiling(length(motifs)/3)*1.5, unit="in",         res = 300)
-      print(logo_plots)
+   
       dev.off()
 
 .. image:: /images/logos.png
