@@ -432,27 +432,17 @@ parameter. Add the resulting plot to motif_list. ::
    :width: 400
    :alt: Motif Plots
    
- **Generate List of ggplot Objects for Each Motif Plot**
-Create individual motif plots by by generating a list of ggplot objects for each motif plot. It iterates over the row names of spatial.obj, extracts the motif PWM for each row, and converts it to a probability matrix. It then uses the probability matrix to create a ggplot object for the motif plot. The reason for this step is to create individual motif plots that can be combined into a single plot.::
-
-   require(ggseqlogo)
-     motif_pwm <- getPeakAnnotation(proj_in_tissue, "Motif")$motifs
-     logo_list <- list()
-     for(i in rownames(x=spatial.obj)){
-    motif_ID <- motif_pwm[[str_replace(i, "-", "_")]] # change here
-    mat <- TFBSTools::as.matrix(motif_ID)
-    probmat <- exp(mat) * matrix(TFBSTools::bg(motif_ID), nrow = nrow(mat), ncol = ncol(mat),  byrow = FALSE)
-    logo_list[[i]] <- ggseqlogo(probmat)
-     }
      
 **Combine Individual Motif Plots into One Plot** 
 
 Use the wrap_plots function from the ggseqlogo package to combine the plots into one plot with multiple columns.::
 
      logo_plots <- wrap_plots(logo_list, ncol = 3)
+     
+     png(file="logos.png", width = 8, height=ceiling(length(motifs)/3)*1.5, unit="in", res = 300)
+     print(logo_plots)
+     dev.off()
+     
+.. image:: ./images/logos.png
+   :width: 400
    
-      dev.off()
-
-.. image:: /images/logos.png
-
-  
