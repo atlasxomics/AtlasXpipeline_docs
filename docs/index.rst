@@ -31,7 +31,7 @@ Introduction to DBiT-seq spatial workflow
 
 .. toctree::
    :maxdepth: 3
-   :caption: AtlasXAnalyze:
+   :caption: AtlasXanalyze:
 
    Installation
    SpatialEpigenome
