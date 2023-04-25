@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Introduction to DBiT-seq workflow
+Introduction to DBiT-seq spatial workflow
 =======================================================================
 .. toctree::
    :caption: AtlasXbrowser:
