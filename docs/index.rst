@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
+Introduction to DBiT-seq workflow
 =======================================================================
 .. toctree::
    :caption: AtlasXbrowser:
@@ -31,7 +31,7 @@ Introduction to Spatial Epigenome Data Analysis (DBiT-seq)
 
 .. toctree::
    :maxdepth: 3
-   :caption: AtlasXomics:
+   :caption: AtlasXAnalyze:
 
    Installation
    SpatialEpigenome
