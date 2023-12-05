@@ -56,8 +56,7 @@ Data species, number of threads, tile size, genome size, minimum TSS, minimum fr
   min_TSS <- 0
   min_Frags <- 0
   set.seed(1234)
-  #Path to fragments.tsv.gz located in <sample>_cellranger_outs/
-  inputFile <- "./test_data/D00357_cellranger_output/fragments.tsv.gz"
+  inputFile <- "./test_data/fragments.tsv.gz"
   project_name <- 'Control'
   # Path to spatial folder located in <sample>
   spatialFolder <- './test_data/Spatial/D357/spatial'
@@ -65,7 +64,7 @@ Data species, number of threads, tile size, genome size, minimum TSS, minimum fr
 
 ArchR Project Creation
 ---------------------------
-Once generating the needed fragments.tsv file outputted from Cellranger for a specific sample, we can now create
+Once generating the needed fragments.tsv file outputted from Chromap for a specific sample, we can now create
 an ArchR **ArrowFile** which will form the basis of our ATAC analysis. During the ArrowFile creation step, all of the
 necessary data and metadata for the given sample will be generated and stored on disk in HD5 format. A few parameters such as 
 minTSS and minFrags, which respectively denote the lowest TSS enrichment score and lowest number of fragments can
